@@ -1,10 +1,9 @@
-package com.example.jagoda.bakingapp.dependencyInjection.contextModules;
+package com.example.jagoda.bakingapp.dependencyInjection.app;
 
 import android.content.Context;
 
-import com.example.jagoda.bakingapp.dependencyInjection.app.BakingAppScope;
-
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -22,9 +21,8 @@ public class ContextModule {
         appContext = context.getApplicationContext();
     }
 
-    @Named("application_context")
-    @BakingAppScope
     @Provides
+    @Singleton
     Context provideContext() {
         return appContext;
     }

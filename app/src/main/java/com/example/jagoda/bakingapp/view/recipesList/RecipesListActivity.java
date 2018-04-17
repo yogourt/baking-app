@@ -2,16 +2,30 @@ package com.example.jagoda.bakingapp.view.recipesList;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Adapter;
 
 import com.example.jagoda.bakingapp.R;
 import com.example.jagoda.bakingapp.dependencyInjection.app.BakingApp;
 import com.example.jagoda.bakingapp.dependencyInjection.recipesList.DaggerRecipesListComponent;
 import com.example.jagoda.bakingapp.dependencyInjection.recipesList.RecipesListComponent;
-import com.example.jagoda.bakingapp.dependencyInjection.contextModules.ActivityModule;
+import com.example.jagoda.bakingapp.dependencyInjection.recipesList.RecipesListModule;
+import com.example.jagoda.bakingapp.model.Recipe;
+import com.example.jagoda.bakingapp.model.RecipesApi;
+import com.example.jagoda.bakingapp.presenter.RecipesListPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import retrofit2.Call;
+
 public class RecipesListActivity extends AppCompatActivity {
+
+    @Inject
+    RecipesListPresenter presenter;
 
     @Inject
     RecipesListAdapter adapter;
@@ -19,17 +33,24 @@ public class RecipesListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_recipes_list);
 
         RecipesListComponent component = DaggerRecipesListComponent.builder()
                 .bakingAppComponent(BakingApp.get(this).getComponent())
-                .activityModule(new ActivityModule(this))
+                .recipesListModule(new RecipesListModule(this))
                 .build();
 
-        component.injectMainActivity(this);
+        component.injectRecipesListActivity(this);
+        component.injectRecipesListPresenter(presenter);
 
+        prepareRecipesRecyclerView();
 
-        adapter.getItemCount();
+    }
 
+    private void prepareRecipesRecyclerView() {
+        RecyclerView recipesRecyclerView = findViewById(R.id.recipes_list);
+        recipesRecyclerView.setAdapter(adapter);
+        recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        presenter.setRecipes();
     }
 }

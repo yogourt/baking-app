@@ -6,10 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Scope;
 
-/**
- * This is the scope for recipes list activity
- */
-
 @Scope
 @Retention(RetentionPolicy.CLASS)
 public @interface RecipesListScope {

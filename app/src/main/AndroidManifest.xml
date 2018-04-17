@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jagoda.bakingapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".dependencyInjection.app.BakingApp"
         android:allowBackup="true"
@@ -17,6 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.recipeSteps.StepsListActivity" />
+
+        <service android:name=".model.sync.SyncJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

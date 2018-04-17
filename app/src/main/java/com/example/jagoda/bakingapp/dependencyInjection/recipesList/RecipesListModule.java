@@ -2,20 +2,31 @@ package com.example.jagoda.bakingapp.dependencyInjection.recipesList;
 
 import android.content.Context;
 
-import com.example.jagoda.bakingapp.dependencyInjection.contextModules.ActivityModule;
+import com.example.jagoda.bakingapp.presenter.RecipesListPresenter;
+import com.example.jagoda.bakingapp.view.recipesList.RecipesListActivity;
 import com.example.jagoda.bakingapp.view.recipesList.RecipesListAdapter;
-
-import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
 
-@RecipesListScope
-@Module(includes = ActivityModule.class)
+@Module
 public class RecipesListModule {
 
+    private final RecipesListActivity activity;
+
+    public RecipesListModule(RecipesListActivity activity) {
+        this.activity = activity;
+    }
+
     @Provides
-    RecipesListAdapter provideRecipesListAdapter(@Named("activity_context")Context context) {
-        return new RecipesListAdapter(context);
+    @RecipesListScope
+    RecipesListAdapter provideRecipesListAdapter() {
+        return new RecipesListAdapter(activity.getBaseContext());
+    }
+
+    @Provides
+    @RecipesListScope
+    RecipesListPresenter provideRecipesListPresenter() {
+        return new RecipesListPresenter();
     }
 }
