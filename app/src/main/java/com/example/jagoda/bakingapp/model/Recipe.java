@@ -1,16 +1,19 @@
 package com.example.jagoda.bakingapp.model;
 
 
-import android.content.Intent;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+public class Recipe extends RealmObject {
+
+    @PrimaryKey
     private int id;
     private String name;
-    private List<Ingredient> ingredients;
+    private RealmList<Ingredient> ingredients;
 
     public int getId() {
         return id;
@@ -20,7 +23,7 @@ public class Recipe {
         return name;
     }
 
-    public List<Ingredient> getIngredients() {
+    public RealmList<Ingredient> getIngredients() {
         return  ingredients;
     }
 
@@ -32,27 +35,4 @@ public class Recipe {
         return ingredientsStringList;
     }
 
-    class Ingredient {
-
-        private float quantity;
-        private String measure;
-        private String ingredient;
-
-        public float getQuantity() {
-            return quantity;
-        }
-
-        public String getMeasure() {
-            return measure;
-        }
-
-        public String getIngredient() {
-            return ingredient;
-        }
-
-        public String getIngredientString() {
-            return quantity + " " + measure + " " + ingredient;
-        }
-
-    }
 }

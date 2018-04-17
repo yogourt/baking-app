@@ -24,6 +24,8 @@ public class SyncUtilities {
     private static final int FLEXTIME_SEC = (int) TimeUnit.HOURS.toSeconds(1);
 
     private static final String SYNC_JOB_TAG = "baking_app_sync_tag";
+    private static final String IMMEDIATE_SYNC_JOB_TAG = "baking_app_immediate_sync_tag";
+
 
     private static boolean sInitialized;
 
@@ -34,7 +36,17 @@ public class SyncUtilities {
         GooglePlayDriver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
-        Job syncJob = firebaseJobDispatcher.newJobBuilder()
+        Job immediateSyncJob = firebaseJobDispatcher.newJobBuilder()
+                .setTag(IMMEDIATE_SYNC_JOB_TAG)
+                .setService(SyncJobService.class)
+                .addConstraint(Constraint.ON_ANY_NETWORK)
+                .setRecurring(false)
+                .setTrigger(Trigger.executionWindow(0,0))
+                .build();
+
+        firebaseJobDispatcher.schedule(immediateSyncJob);
+
+        Job scheduledSyncJob = firebaseJobDispatcher.newJobBuilder()
                 .setTag(SYNC_JOB_TAG)
                 .setService(SyncJobService.class)
                 .addConstraint(Constraint.ON_ANY_NETWORK)
@@ -44,7 +56,7 @@ public class SyncUtilities {
                 .setTrigger(Trigger.executionWindow(INTERVAL_SEC, INTERVAL_SEC + FLEXTIME_SEC))
                 .build();
 
-        firebaseJobDispatcher.schedule(syncJob);
+        firebaseJobDispatcher.schedule(scheduledSyncJob);
 
         sInitialized = true;
     }

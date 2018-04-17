@@ -10,24 +10,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.jagoda.bakingapp.R;
-import com.example.jagoda.bakingapp.model.Recipe;
 import com.example.jagoda.bakingapp.view.recipeSteps.StepsListActivity;
 
 import java.util.List;
 
 public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
 
-    public static final String KEY_INGREDIENTS = "ingredients";
-
     private Context context;
-    private List<Recipe> recipesList;
+    private List<String> recipesList;
 
     public RecipesListAdapter(Context context) {
         this.context = context;
     }
 
 
-    public void setRecipesList(List<Recipe> recipesList) {
+    public void setRecipesList(List<String> recipesList) {
         this.recipesList = recipesList;
         notifyDataSetChanged();
     }
@@ -44,7 +41,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.recipeName.setText(recipesList.get(position).getName());
+        holder.recipeName.setText(recipesList.get(position));
     }
 
     @Override
@@ -67,8 +64,6 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
         @Override
         public void onClick(View view) {
             Intent stepsListIntent = new Intent(context, StepsListActivity.class);
-            Recipe recipe = recipesList.get(getAdapterPosition());
-            stepsListIntent.putStringArrayListExtra(KEY_INGREDIENTS, recipe.getIngredientsStringList());
             context.startActivity(stepsListIntent);
         }
     }

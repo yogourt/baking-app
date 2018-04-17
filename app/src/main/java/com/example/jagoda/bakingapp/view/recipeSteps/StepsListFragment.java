@@ -14,7 +14,6 @@ import com.example.jagoda.bakingapp.R;
 
 import java.util.ArrayList;
 
-import static com.example.jagoda.bakingapp.view.recipesList.RecipesListAdapter.KEY_INGREDIENTS;
 
 /**
  *
@@ -36,13 +35,6 @@ public class StepsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_steps_list, container, false);
 
         ingredientsListView = view.findViewById(R.id.ingredients_list_view);
-
-
-        Intent intent = getActivity().getIntent();
-        if(intent != null) {
-            ArrayList<String> ingredients = intent.getStringArrayListExtra(KEY_INGREDIENTS);
-            prepareIngredients(ingredients);
-        }
 
         return view;
     }

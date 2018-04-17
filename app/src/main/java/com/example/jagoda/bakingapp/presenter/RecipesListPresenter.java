@@ -19,9 +19,7 @@ public class RecipesListPresenter {
     RecipesApi recipesApi;
 
     public void setRecipes() {
-        RecipesRepository.getRecipesNames();
-
-
+        adapter.setRecipesList(RecipesRepository.getRecipesNames());
     }
 
 }

@@ -11,16 +11,10 @@ import com.example.jagoda.bakingapp.dependencyInjection.app.BakingApp;
 import com.example.jagoda.bakingapp.dependencyInjection.recipesList.DaggerRecipesListComponent;
 import com.example.jagoda.bakingapp.dependencyInjection.recipesList.RecipesListComponent;
 import com.example.jagoda.bakingapp.dependencyInjection.recipesList.RecipesListModule;
-import com.example.jagoda.bakingapp.model.Recipe;
-import com.example.jagoda.bakingapp.model.RecipesApi;
 import com.example.jagoda.bakingapp.presenter.RecipesListPresenter;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
-
-import retrofit2.Call;
 
 public class RecipesListActivity extends AppCompatActivity {
 
