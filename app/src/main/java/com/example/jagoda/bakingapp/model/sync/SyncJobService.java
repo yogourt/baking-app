@@ -1,7 +1,5 @@
 package com.example.jagoda.bakingapp.model.sync;
 
-import android.util.Log;
-
 import com.example.jagoda.bakingapp.dependencyInjection.app.BakingApp;
 import com.example.jagoda.bakingapp.model.Recipe;
 import com.example.jagoda.bakingapp.model.RecipesApi;
@@ -15,11 +13,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 
 public class SyncJobService extends JobService {
-
-    private static final String TAG = "SyncJobService";
 
     RecipesApi recipesApi;
 
@@ -33,7 +30,7 @@ public class SyncJobService extends JobService {
     @Override
     public boolean onStartJob(final JobParameters job) {
 
-        Log.d(TAG, "Job started");
+        Timber.d("Job started");
 
         Call<List<Recipe>> call = recipesApi.getRecipesList();
 
@@ -46,12 +43,12 @@ public class SyncJobService extends JobService {
                         RecipesRepository.saveRecipes(recipes);
                         jobFinished(job, false);
 
-                        Log.d(TAG, "Job finished");
+                        Timber.d("Job finished");
                     }
 
                     @Override
                     public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                        Log.e(TAG, t.getMessage());
+                        Timber.e(t.getMessage());
                     }
                });
 

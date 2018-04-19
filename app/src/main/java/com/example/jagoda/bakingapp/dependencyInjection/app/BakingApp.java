@@ -9,6 +9,7 @@ import com.example.jagoda.bakingapp.model.sync.SyncJobService;
 import com.example.jagoda.bakingapp.model.sync.SyncUtilities;
 
 import io.realm.Realm;
+import timber.log.Timber;
 
 
 public class BakingApp extends Application {
@@ -21,14 +22,13 @@ public class BakingApp extends Application {
 
         component = DaggerBakingAppComponent.create();
 
-
         //init Realm database, it should be done once when app starts
         Realm.init(this);
 
         //schedule SQLite sync with network source to happen once a day
         SyncUtilities.scheduleSync(this);
 
-
+        Timber.plant(new Timber.DebugTree());
     }
 
     public BakingAppComponent getComponent() {

@@ -21,8 +21,4 @@ public class Ingredient extends RealmObject {
         return ingredient;
     }
 
-    public String getIngredientString() {
-        return quantity + " " + measure + " " + ingredient;
-    }
-
 }

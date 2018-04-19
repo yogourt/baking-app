@@ -14,6 +14,8 @@ import com.example.jagoda.bakingapp.view.recipeSteps.StepsListActivity;
 
 import java.util.List;
 
+import static com.example.jagoda.bakingapp.view.recipeSteps.StepsListFragment.KEY_RECIPE_NAME;
+
 public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
 
     private Context context;
@@ -64,6 +66,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
         @Override
         public void onClick(View view) {
             Intent stepsListIntent = new Intent(context, StepsListActivity.class);
+            stepsListIntent.putExtra(KEY_RECIPE_NAME, recipesList.get(getAdapterPosition()));
             context.startActivity(stepsListIntent);
         }
     }

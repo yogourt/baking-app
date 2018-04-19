@@ -9,9 +9,6 @@ import javax.inject.Inject;
 
 public class RecipesListPresenter {
 
-    private static final String TAG = "RecipesListPresenter";
-
-
     @Inject
     RecipesListAdapter adapter;
 

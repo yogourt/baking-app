@@ -1,6 +1,8 @@
 package com.example.jagoda.bakingapp.model;
 
 
+import com.example.jagoda.bakingapp.model.sync.Step;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Recipe extends RealmObject {
     private int id;
     private String name;
     private RealmList<Ingredient> ingredients;
+    private RealmList<Step> steps;
 
     public int getId() {
         return id;
@@ -27,12 +30,8 @@ public class Recipe extends RealmObject {
         return  ingredients;
     }
 
-    public ArrayList<String> getIngredientsStringList() {
-        ArrayList<String> ingredientsStringList = new ArrayList<>();
-        for(Ingredient ingredient: ingredients) {
-            ingredientsStringList.add(ingredient.getIngredientString());
-        }
-        return ingredientsStringList;
+    public RealmList<Step> getSteps() {
+        return steps;
     }
 
 }
