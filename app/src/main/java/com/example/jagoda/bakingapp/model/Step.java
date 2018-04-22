@@ -1,4 +1,4 @@
-package com.example.jagoda.bakingapp.model.sync;
+package com.example.jagoda.bakingapp.model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

@@ -46,4 +46,8 @@ dependencies {
     compile 'com.firebase:firebase-jobdispatcher:0.5.2'
 
     implementation 'com.jakewharton.timber:timber:4.7.0'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compile 'com.google.android.exoplayer:exoplayer:r2.2.0'
 }

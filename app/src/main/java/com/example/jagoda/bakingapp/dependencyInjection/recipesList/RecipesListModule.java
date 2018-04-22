@@ -2,6 +2,7 @@ package com.example.jagoda.bakingapp.dependencyInjection.recipesList;
 
 import android.content.Context;
 
+import com.example.jagoda.bakingapp.model.sync.FirstSyncUtils;
 import com.example.jagoda.bakingapp.presenter.RecipesListPresenter;
 import com.example.jagoda.bakingapp.view.recipesList.RecipesListActivity;
 import com.example.jagoda.bakingapp.view.recipesList.RecipesListAdapter;
@@ -28,5 +29,11 @@ public class RecipesListModule {
     @RecipesListScope
     RecipesListPresenter provideRecipesListPresenter() {
         return new RecipesListPresenter();
+    }
+
+    @Provides
+    @RecipesListScope
+    FirstSyncUtils provideFirstSyncUtils() {
+        return new FirstSyncUtils();
     }
 }

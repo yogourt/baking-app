@@ -16,6 +16,12 @@ public class StepsListModule {
         this.activity = activity;
     }
 
+
+    @Provides
+    @StepsListScope
+    StepsListActivity provideStepsListActivity() {
+        return activity;
+    }
     @Provides
     @StepsListScope
     StepsListPresenter provideStepsListPresenter() {
@@ -25,7 +31,7 @@ public class StepsListModule {
     @Provides
     @StepsListScope
     StepsListAdapter provideStepsListAdapter() {
-        return new StepsListAdapter(activity.getBaseContext());
+        return new StepsListAdapter(activity.getBaseContext(), activity);
     }
 
 }

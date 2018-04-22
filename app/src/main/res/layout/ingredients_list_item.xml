@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="@dimen/list_item_padding"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/quantity_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/ingredient_text_view_space"
+        style="@style/TextAppearance.AppCompat.Large"
+        tools:text="2"/>
+
+    <TextView
+        android:id="@+id/measure_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/ingredient_text_view_space"
+        style="@style/TextAppearance.AppCompat.Medium"
+        tools:text="CUPS"/>
 
     <TextView
         android:id="@+id/ingredient_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_gravity="center_vertical"
+        style="@style/TextAppearance.AppCompat.Large"
+        tools:text="Graham Cracker crumbs"/>
 
-</FrameLayout>
+</LinearLayout>

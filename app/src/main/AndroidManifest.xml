@@ -19,15 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".view.recipeSteps.StepsListActivity" />
 
-        <service android:name=".model.sync.SyncJobService"
+        <service
+            android:name=".model.sync.SyncJobService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
+
+        <activity android:name=".view.stepDetails.StepDetailsActivity"></activity>
     </application>
 
 </manifest>

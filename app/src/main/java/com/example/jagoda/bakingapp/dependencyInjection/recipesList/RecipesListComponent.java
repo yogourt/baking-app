@@ -1,6 +1,7 @@
 package com.example.jagoda.bakingapp.dependencyInjection.recipesList;
 
 import com.example.jagoda.bakingapp.dependencyInjection.app.BakingAppComponent;
+import com.example.jagoda.bakingapp.model.sync.FirstSyncUtils;
 import com.example.jagoda.bakingapp.presenter.RecipesListPresenter;
 import com.example.jagoda.bakingapp.view.recipesList.RecipesListActivity;
 
@@ -14,4 +15,5 @@ public interface RecipesListComponent {
 
     void injectRecipesListActivity(RecipesListActivity recipesListActivity);
     void injectRecipesListPresenter(RecipesListPresenter recipesListPresenter);
+    void injectFirstSyncUtils(FirstSyncUtils firstSyncUtils);
 }

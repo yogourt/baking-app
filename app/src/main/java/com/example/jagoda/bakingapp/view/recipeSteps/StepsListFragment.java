@@ -9,18 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
+import android.widget.SimpleExpandableListAdapter;
 
 import com.example.jagoda.bakingapp.R;
 import com.example.jagoda.bakingapp.dependencyInjection.stepsList.StepsListComponent;
-import com.example.jagoda.bakingapp.model.Ingredient;
 import com.example.jagoda.bakingapp.presenter.StepsListPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 
@@ -39,8 +42,10 @@ public class StepsListFragment extends Fragment {
     @Inject
     StepsListAdapter adapter;
 
-    private ListView ingredientsListView;
-    private RecyclerView stepsRecyclerView;
+    @BindView(R.id.ingredients_list_view)
+    ExpandableListView ingredientsListView;
+    @BindView(R.id.steps_recycler_view)
+    RecyclerView stepsRecyclerView;
 
     public StepsListFragment() {
         // Required empty public constructor
@@ -56,8 +61,7 @@ public class StepsListFragment extends Fragment {
             recipeName = getActivity().getIntent().getStringExtra(KEY_RECIPE_NAME);
         }
 
-        ingredientsListView = view.findViewById(R.id.ingredients_list_view);
-        stepsRecyclerView = view.findViewById(R.id.steps_recycler_view);
+        ButterKnife.bind(this, view);
 
         if(presenter==null) Timber.d("Presenter is null");
         return view;
@@ -78,12 +82,18 @@ public class StepsListFragment extends Fragment {
         prepareStepsRecyclerView();
     }
 
-    //TODO: make ingredients to be separate activity/expandable list view
     private void prepareIngredientsList() {
 
-        ArrayList<Ingredient> ingredients = presenter.getIngredients(recipeName);
-        ArrayAdapter adapter = new ArrayAdapter(getContext(), R.layout.ingredients_list_item,
-                R.id.ingredient_text_view, ingredients);
+        SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(getContext(),
+                presenter.getIngredientsTitle(),
+                R.layout.ingredients_title_layout,
+                new String[]{},
+                new int[]{},
+                presenter.getIngredients(recipeName),
+                R.layout.ingredients_list_item,
+                presenter.getKeysArray(),
+                presenter.getViewsIdsArray() );
+
         ingredientsListView.setAdapter(adapter);
     }
 

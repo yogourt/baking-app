@@ -6,13 +6,7 @@
     android:padding="@dimen/activity_padding"
     tools:context="com.example.jagoda.bakingapp.view.recipeSteps.StepsListFragment">
 
-    <TextView
-        android:id="@+id/ingredients_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/ingredients_label" />
-
-    <ListView
+    <ExpandableListView
         android:id="@+id/ingredients_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

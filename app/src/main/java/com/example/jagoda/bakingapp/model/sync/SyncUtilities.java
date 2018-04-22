@@ -14,6 +14,8 @@ import com.firebase.jobdispatcher.Trigger;
 
 import java.util.concurrent.TimeUnit;
 
+import timber.log.Timber;
+
 /**
  *
  */
@@ -36,16 +38,6 @@ public class SyncUtilities {
         GooglePlayDriver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
-        Job immediateSyncJob = firebaseJobDispatcher.newJobBuilder()
-                .setTag(IMMEDIATE_SYNC_JOB_TAG)
-                .setService(SyncJobService.class)
-                .addConstraint(Constraint.ON_ANY_NETWORK)
-                .setRecurring(false)
-                .setTrigger(Trigger.executionWindow(0,0))
-                .build();
-
-        firebaseJobDispatcher.schedule(immediateSyncJob);
-
         Job scheduledSyncJob = firebaseJobDispatcher.newJobBuilder()
                 .setTag(SYNC_JOB_TAG)
                 .setService(SyncJobService.class)
@@ -57,7 +49,9 @@ public class SyncUtilities {
                 .build();
 
         firebaseJobDispatcher.schedule(scheduledSyncJob);
+        Timber.d("regular sync planned");
 
         sInitialized = true;
     }
+
 }
