@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 public class StepDetailsFragment extends Fragment {
 
     public static final String KEY_STEP_NUMBER = "step_number";
+    public static final String KEY_NUM_OF_STEPS = "num_of_steps";
     public static final String KEY_RECIPE_NAME = "recipe_name";
 
     @Inject
@@ -45,7 +46,9 @@ public class StepDetailsFragment extends Fragment {
     SimpleExoPlayerView exoPlayerView;
 
     private Step recipeStep;
-
+    private int stepNumber;
+    private int numOfSteps;
+    private String recipeName;
 
     public StepDetailsFragment() {
         // Required empty public constructor
@@ -67,19 +70,57 @@ public class StepDetailsFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+
         if(getActivity() != null && getActivity().getIntent() != null) {
-            String recipeName = getActivity().getIntent().getStringExtra(KEY_RECIPE_NAME);
-            int stepNumber = getActivity().getIntent().getIntExtra(KEY_STEP_NUMBER, 0);
-            recipeStep = presenter.getStep(recipeName, stepNumber);
+            recipeName = getActivity().getIntent().getStringExtra(KEY_RECIPE_NAME);
+            stepNumber = getActivity().getIntent().getIntExtra(KEY_STEP_NUMBER, 0);
+            numOfSteps = getActivity().getIntent().getIntExtra(KEY_NUM_OF_STEPS, 0);
 
             prepareStepDescription();
-            prepareExoPlayer();
+
+            view.setOnTouchListener(new OnSwipeTouchListener(getContext()){
+
+                @Override
+                public void onSwipeRight() {
+                    if(stepNumber > 1) {
+                        stepNumber -= 1;
+                        prepareStepDescription();
+                        prepareExoPlayer();
+                    }
+                }
+
+                @Override
+                public void onSwipeLeft() {
+                    if(stepNumber < numOfSteps) {
+                        stepNumber += 1;
+                        prepareStepDescription();
+                        prepareExoPlayer();
+                    }
+                }
+            });
+
         }
 
         return view;
     }
 
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        prepareExoPlayer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        player.stop();
+        player.release();
+    }
+
     private void prepareStepDescription() {
+        recipeStep = presenter.getStep(recipeName, stepNumber);
         detailedDescTv.setText(recipeStep.getDescription());
     }
 
@@ -87,9 +128,15 @@ public class StepDetailsFragment extends Fragment {
 
         exoPlayerView.setPlayer(player);
 
-        MediaSource mediaSource = presenter.getMediaSource(recipeStep.getVideoURL());
-        player.prepare(mediaSource);
-        player.setPlayWhenReady(true);
+        String videoUrl = recipeStep.getVideoURL();
+
+        if(videoUrl.isEmpty()) {
+            exoPlayerView.setVisibility(View.GONE);
+        } else {
+            MediaSource mediaSource = presenter.getMediaSource(videoUrl);
+            player.prepare(mediaSource);
+            player.setPlayWhenReady(true);
+        }
     }
 
 }

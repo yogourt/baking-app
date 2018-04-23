@@ -14,14 +14,8 @@ import io.realm.RealmResults;
 
 public class RecipesRepository {
 
-    public static List<String> getRecipesNames() {
-        RealmResults<Recipe> recipes = Realm.getDefaultInstance().where(Recipe.class).findAll();
-
-        List<String> recipesNames = new ArrayList<>();
-        for(Recipe recipe: recipes) {
-            recipesNames.add(recipe.getName());
-        }
-        return recipesNames;
+    public static List<Recipe> getRecipes() {
+        return Realm.getDefaultInstance().where(Recipe.class).findAll();
     }
 
     public static ArrayList<Ingredient> getRecipeIngredients(String recipeName) {

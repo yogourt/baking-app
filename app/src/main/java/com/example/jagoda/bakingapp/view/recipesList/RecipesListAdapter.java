@@ -2,31 +2,38 @@ package com.example.jagoda.bakingapp.view.recipesList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jagoda.bakingapp.R;
+import com.example.jagoda.bakingapp.model.Recipe;
 import com.example.jagoda.bakingapp.view.recipeSteps.StepsListActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.example.jagoda.bakingapp.view.recipeSteps.StepsListFragment.KEY_RECIPE_NAME;
 
 public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
 
     private Context context;
-    private List<String> recipesList;
+    private List<Recipe> recipesList;
 
     public RecipesListAdapter(Context context) {
         this.context = context;
     }
 
 
-    public void setRecipesList(List<String> recipesList) {
+    public void setRecipesList(List<Recipe> recipesList) {
         this.recipesList = recipesList;
         notifyDataSetChanged();
     }
@@ -43,7 +50,17 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.recipeName.setText(recipesList.get(position));
+        holder.recipeName.setText(recipesList.get(position).getName());
+
+        if(!recipesList.get(position).getImage().isEmpty()) {
+            Uri imageUri = Uri.parse(recipesList.get(position).getImage());
+            Picasso.get()
+                    .load(imageUri)
+                    .into(holder.cakeImageView);
+
+            holder.cakeIcon.setVisibility(View.INVISIBLE);
+
+        }
     }
 
     @Override
@@ -55,18 +72,23 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView recipeName;
+        @BindView(R.id.recipe_name_text_view)
+        TextView recipeName;
+        @BindView(R.id.cake_image_view)
+        ImageView cakeImageView;
+        @BindView(R.id.cake_icon)
+        ImageView cakeIcon;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
-            recipeName = itemView.findViewById(R.id.recipe_name_text_view);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             Intent stepsListIntent = new Intent(context, StepsListActivity.class);
-            stepsListIntent.putExtra(KEY_RECIPE_NAME, recipesList.get(getAdapterPosition()));
+            stepsListIntent.putExtra(KEY_RECIPE_NAME, recipesList.get(getAdapterPosition()).getName());
             context.startActivity(stepsListIntent);
         }
     }

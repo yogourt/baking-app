@@ -5,4 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/recipes_padding"
+    android:paddingBottom="@dimen/recipes_padding"
+    android:background="@color/dark"
     tools:context=".view.recipesList.RecipesListActivity" />

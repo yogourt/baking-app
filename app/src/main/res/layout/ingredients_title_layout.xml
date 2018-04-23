@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        style="@style/TextAppearance.AppCompat.Display1"
+        style="@style/IngredientsTitleStyle"
+        android:paddingBottom="@dimen/list_item_padding"
         android:text="@string/ingredients_label"/>
 
 </FrameLayout>

@@ -15,6 +15,7 @@ import com.example.jagoda.bakingapp.view.stepDetails.StepDetailsActivity;
 
 import timber.log.Timber;
 
+import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.KEY_NUM_OF_STEPS;
 import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.KEY_RECIPE_NAME;
 import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.KEY_STEP_NUMBER;
 
@@ -22,6 +23,7 @@ import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.
 public class StepsListActivity extends AppCompatActivity implements StepsListAdapter.OnItemClickListener {
 
     StepsListComponent component;
+    private String recipeName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class StepsListActivity extends AppCompatActivity implements StepsListAda
                 .build();
 
         Timber.d("component initialized");
+
+        recipeName = getIntent().getStringExtra(KEY_RECIPE_NAME);
+        setTitle(recipeName);
     }
 
     public StepsListComponent getComponent() {
@@ -42,12 +47,12 @@ public class StepsListActivity extends AppCompatActivity implements StepsListAda
 
     //onClick method for step item, that opens detailed info about step
     @Override
-    public void onClick(int stepNumber) {
+    public void onClick(int stepNumber, int numOfSteps) {
         Intent stepDetailsActivityIntent = new Intent(this, StepDetailsActivity.class);
 
-        String recipeName = getIntent().getStringExtra(KEY_RECIPE_NAME);
         stepDetailsActivityIntent.putExtra(KEY_RECIPE_NAME, recipeName);
         stepDetailsActivityIntent.putExtra(KEY_STEP_NUMBER, stepNumber);
+        stepDetailsActivityIntent.putExtra(KEY_NUM_OF_STEPS, numOfSteps);
         startActivity(stepDetailsActivityIntent);
     }
 }

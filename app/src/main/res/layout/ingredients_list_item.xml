@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="@dimen/list_item_padding"
+    android:paddingStart="@dimen/list_item_padding"
+    android:paddingEnd="@dimen/list_item_padding"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/ingredient_text_view_space"
-        style="@style/TextAppearance.AppCompat.Large"
+        style="@style/DescTextStyle"
         tools:text="2"/>
 
     <TextView
@@ -21,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/ingredient_text_view_space"
-        style="@style/TextAppearance.AppCompat.Medium"
+        style="@style/DescTextStyle"
+        android:textStyle="bold"
         tools:text="CUPS"/>
 
     <TextView
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:gravity="end"
         android:layout_gravity="center_vertical"
-        style="@style/TextAppearance.AppCompat.Large"
+        style="@style/DescTextStyle"
         tools:text="Graham Cracker crumbs"/>
 
 </LinearLayout>

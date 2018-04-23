@@ -6,17 +6,20 @@
     <color name="primary_dark">#455A64</color>
     <color name="primary_light">#CFD8DC</color>
     <color name="accent">#7C4DFF</color>
+    <color name="accent_semi">#3b7c4dff</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="white">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
 
-    <color name="gun_powder">#4B4B4D</color>
+    <color name="gun_powder">#303031</color>
     <color name="dark">#242425</color>
     <color name="santas_grey">#9C9C9D</color>
+    <color name="gun_powder_semi">#824b4b4d</color>
+    <color name="white_semi">#18ffffff</color>
     <color name="mona_lisa"> #FC8D82</color>
     <color name="salmon">#FB867B</color>
-    <color name="copper_rose">#9F6D6B</color>
-    <color name="rose_bud">#FCA198</color>
+    <color name="copper_rose">#c27983</color>
+    <color name="rose_bud">#fca1a4</color>
 
 </resources>

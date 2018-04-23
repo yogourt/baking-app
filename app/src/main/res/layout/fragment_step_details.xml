@@ -1,10 +1,15 @@
-<android.support.constraint.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment">
+    android:layout_width="wrap_content"
+    android:background="@color/dark">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/video_view"
@@ -16,12 +21,14 @@
 
     <TextView
         android:id="@+id/step_detailed_desc_text_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/detailed_desc_magin"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_margin="@dimen/detailed_desc_margin"
+        style="@style/DescTextStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/video_view"
         tools:text="Recipe Introduction" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
+
+</ScrollView>

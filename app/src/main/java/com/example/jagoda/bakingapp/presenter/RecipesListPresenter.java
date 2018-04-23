@@ -29,7 +29,7 @@ public class RecipesListPresenter {
     FirstSyncUtils firstSyncUtils;
 
     public void setRecipes() {
-        List<String> recipesNames = RecipesRepository.getRecipesNames();
+        List<Recipe> recipesNames = RecipesRepository.getRecipes();
         if(recipesNames.isEmpty()) firstSync();
         else adapter.setRecipesList(recipesNames);
     }

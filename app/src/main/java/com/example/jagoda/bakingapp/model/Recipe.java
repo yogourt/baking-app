@@ -12,6 +12,8 @@ public class Recipe extends RealmObject {
     private String name;
     private RealmList<Ingredient> ingredients;
     private RealmList<Step> steps;
+    private int servings;
+    private String image;
 
     public int getId() {
         return id;
@@ -29,4 +31,11 @@ public class Recipe extends RealmObject {
         return steps;
     }
 
+    public int getServings() {
+        return servings;
+    }
+
+    public String getImage() {
+        return image;
+    }
 }
