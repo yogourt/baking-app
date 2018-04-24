@@ -22,6 +22,8 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
 
     private OnItemClickListener onItemClickListener;
 
+    private int selectedPosition;
+
     public void setStepsList(List<Step> stepsList) {
         this.stepsList = stepsList;
         notifyDataSetChanged();
@@ -48,6 +50,11 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
     public void onBindViewHolder(@NonNull StepViewHolder holder, int position) {
         holder.stepNumberTv.setText(String.valueOf(position + 1));
         holder.stepShortDescTv.setText(stepsList.get(position).getShortDescription());
+
+        if(position == selectedPosition) holder.itemView.setBackgroundColor(
+                context.getResources().getColor(R.color.gun_powder));
+        else holder.itemView.setBackgroundColor(context
+                .getResources().getColor(R.color.dark));
     }
 
     @Override
@@ -72,8 +79,10 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
 
         @Override
         public void onClick(View view) {
+            selectedPosition = getAdapterPosition();
+            notifyDataSetChanged();
             onItemClickListener.
-                    onClick(getAdapterPosition() + 1, stepsList.size());
+                    onClick(selectedPosition + 1, stepsList.size());
         }
     }
 }

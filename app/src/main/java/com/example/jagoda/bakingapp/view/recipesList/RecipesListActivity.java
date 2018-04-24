@@ -2,6 +2,7 @@ package com.example.jagoda.bakingapp.view.recipesList;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -20,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipesListActivity extends AppCompatActivity {
+
+    private static final int COLUMN_NUM_IN_TABLET = 3;
 
     @Inject
     RecipesListPresenter presenter;
@@ -49,13 +52,21 @@ public class RecipesListActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        getSupportActionBar().setBackgroundDrawable(getResources()
+                .getDrawable(R.drawable.gradient_background));
+
         prepareRecipesRecyclerView();
 
     }
 
     private void prepareRecipesRecyclerView() {
         recipesRecyclerView.setAdapter(adapter);
-        recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if(getResources().getBoolean(R.bool.displayed_in_tablet)) {
+            recipesRecyclerView.setLayoutManager(new GridLayoutManager(this, COLUMN_NUM_IN_TABLET));
+        } else {
+            recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
         presenter.setRecipes();
     }
 }

@@ -23,6 +23,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,10 +46,17 @@ public class StepDetailsFragment extends Fragment {
     @BindView(R.id.video_view)
     SimpleExoPlayerView exoPlayerView;
 
+    @BindView(R.id.prev_step_button)
+    TextView prevStepButton;
+    @BindView(R.id.next_step_button)
+    TextView nextStepButton;
+
     private Step recipeStep;
     private int stepNumber;
     private int numOfSteps;
     private String recipeName;
+
+    private boolean displayedInTablet;
 
     public StepDetailsFragment() {
         // Required empty public constructor
@@ -70,46 +78,27 @@ public class StepDetailsFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-
-        if(getActivity() != null && getActivity().getIntent() != null) {
+        displayedInTablet = getActivity().findViewById(R.id.tablet_layout) != null;
+        if(getActivity() != null && getActivity().getIntent() != null && !displayedInTablet) {
             recipeName = getActivity().getIntent().getStringExtra(KEY_RECIPE_NAME);
             stepNumber = getActivity().getIntent().getIntExtra(KEY_STEP_NUMBER, 0);
             numOfSteps = getActivity().getIntent().getIntExtra(KEY_NUM_OF_STEPS, 0);
 
-            prepareStepDescription();
-
-            view.setOnTouchListener(new OnSwipeTouchListener(getContext()){
-
-                @Override
-                public void onSwipeRight() {
-                    if(stepNumber > 1) {
-                        stepNumber -= 1;
-                        prepareStepDescription();
-                        prepareExoPlayer();
-                    }
-                }
-
-                @Override
-                public void onSwipeLeft() {
-                    if(stepNumber < numOfSteps) {
-                        stepNumber += 1;
-                        prepareStepDescription();
-                        prepareExoPlayer();
-                    }
-                }
-            });
+            Timber.d("View preparing");
 
         }
+
+        if(displayedInTablet) view.setBackgroundColor(getResources().getColor(R.color.gun_powder));
+
+        prepareView();
+        prepareButtons();
 
         return view;
     }
 
-
-
     @Override
     public void onStart() {
         super.onStart();
-        prepareExoPlayer();
     }
 
     @Override
@@ -119,9 +108,35 @@ public class StepDetailsFragment extends Fragment {
         player.release();
     }
 
-    private void prepareStepDescription() {
+    public void prepareView() {
+
         recipeStep = presenter.getStep(recipeName, stepNumber);
         detailedDescTv.setText(recipeStep.getDescription());
+
+        if(stepNumber == 1 || displayedInTablet) prevStepButton.setVisibility(View.INVISIBLE);
+        else prevStepButton.setVisibility(View.VISIBLE);
+
+        if(stepNumber == numOfSteps || displayedInTablet) nextStepButton.setVisibility(View.INVISIBLE);
+        else nextStepButton.setVisibility(View.VISIBLE);
+
+        prepareExoPlayer();
+    }
+
+    private void prepareButtons() {
+        nextStepButton.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stepNumber < numOfSteps) stepNumber++;
+                prepareView();
+            }
+        });
+        prevStepButton.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stepNumber > 1) stepNumber--;
+                prepareView();
+            }
+        });
     }
 
     private void prepareExoPlayer() {
@@ -133,10 +148,22 @@ public class StepDetailsFragment extends Fragment {
         if(videoUrl.isEmpty()) {
             exoPlayerView.setVisibility(View.GONE);
         } else {
+            exoPlayerView.setVisibility(View.VISIBLE);
             MediaSource mediaSource = presenter.getMediaSource(videoUrl);
             player.prepare(mediaSource);
             player.setPlayWhenReady(true);
         }
     }
 
+    public void setNumOfSteps(int numOfSteps) {
+        this.numOfSteps = numOfSteps;
+    }
+
+    public void setStepNumber(int stepNumber) {
+        this.stepNumber = stepNumber;
+    }
+
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
 }

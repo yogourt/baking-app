@@ -25,6 +25,8 @@ public class StepDetailsActivity extends AppCompatActivity{
         String recipeName = getIntent().getStringExtra(KEY_RECIPE_NAME);
         setTitle(recipeName);
 
+        getSupportActionBar().setBackgroundDrawable(getResources()
+                .getDrawable(R.drawable.gradient_background));
 
     }
 

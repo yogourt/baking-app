@@ -4,7 +4,6 @@ import android.net.Uri;
 
 import com.example.jagoda.bakingapp.model.localRepository.RecipesRepository;
 import com.example.jagoda.bakingapp.model.Step;
-import com.example.jagoda.bakingapp.view.stepDetails.OnSwipeTouchListener;
 import com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -40,27 +39,6 @@ public class StepDetailsPresenter {
                 null
         );
         return mediaSource;
-    }
-
-    public interface OnSwipeInFragment {
-        void onSwipeRight();
-        void onSwipeLeft();
-    }
-
-    public OnSwipeTouchListener getOnSwipeTouchListener() {
-        return new OnSwipeTouchListener(fragment.getContext()) {
-            @Override
-            public void onSwipeRight() {
-                OnSwipeInFragment callback = (OnSwipeInFragment) fragment.getActivity();
-                callback.onSwipeRight();
-            }
-
-            @Override
-            public void onSwipeLeft() {
-                OnSwipeInFragment callback = (OnSwipeInFragment) fragment.getActivity();
-                callback.onSwipeLeft();
-            }
-        };
     }
 
 }

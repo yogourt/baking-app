@@ -12,6 +12,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/step_margin"
     android:layout_marginTop="@dimen/step_margin"
+    android:paddingStart="@dimen/activity_padding"
+    android:paddingEnd="@dimen/activity_padding"
     android:orientation="horizontal">
 
     <TextView
@@ -19,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="@dimen/number_space"
+        android:layout_marginEnd="@dimen/number_space"
         tools:text="1"
         style="@style/IngredientsTitleStyle"/>
 
@@ -28,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:paddingEnd="@dimen/activity_padding"
         tools:text="Recipe Introduction"
         style="@style/StepTextStyle"/>
 

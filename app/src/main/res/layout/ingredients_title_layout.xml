@@ -6,11 +6,12 @@
 
     <TextView
         android:id="@+id/ingredients_title_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center"
         style="@style/IngredientsTitleStyle"
-        android:paddingBottom="@dimen/list_item_padding"
+        android:layout_marginBottom="@dimen/ingredients_label_margin"
+        android:layout_marginTop="@dimen/ingredients_label_margin"
         android:text="@string/ingredients_label"/>
 
 </FrameLayout>

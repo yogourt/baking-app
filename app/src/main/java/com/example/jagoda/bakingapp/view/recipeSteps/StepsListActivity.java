@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.jagoda.bakingapp.R;
@@ -12,6 +13,7 @@ import com.example.jagoda.bakingapp.dependencyInjection.stepsList.DaggerStepsLis
 import com.example.jagoda.bakingapp.dependencyInjection.stepsList.StepsListComponent;
 import com.example.jagoda.bakingapp.dependencyInjection.stepsList.StepsListModule;
 import com.example.jagoda.bakingapp.view.stepDetails.StepDetailsActivity;
+import com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment;
 
 import timber.log.Timber;
 
@@ -24,6 +26,8 @@ public class StepsListActivity extends AppCompatActivity implements StepsListAda
 
     StepsListComponent component;
     private String recipeName;
+
+    private boolean displayedOnTablet;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +43,24 @@ public class StepsListActivity extends AppCompatActivity implements StepsListAda
 
         recipeName = getIntent().getStringExtra(KEY_RECIPE_NAME);
         setTitle(recipeName);
+
+        getSupportActionBar().setBackgroundDrawable(getResources()
+                .getDrawable(R.drawable.gradient_background));
+
+        //determine if tablet layout was created
+        if(findViewById(R.id.tablet_layout) != null) {
+             displayedOnTablet = true;
+
+            StepDetailsFragment fragment = new StepDetailsFragment();
+            fragment.setStepNumber(1);
+            fragment.setRecipeName(recipeName);
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction()
+                    .add(R.id.fragment_step_details_tablet, fragment)
+                    .commit();
+
+        }
+
     }
 
     public StepsListComponent getComponent() {
@@ -48,11 +70,21 @@ public class StepsListActivity extends AppCompatActivity implements StepsListAda
     //onClick method for step item, that opens detailed info about step
     @Override
     public void onClick(int stepNumber, int numOfSteps) {
-        Intent stepDetailsActivityIntent = new Intent(this, StepDetailsActivity.class);
 
-        stepDetailsActivityIntent.putExtra(KEY_RECIPE_NAME, recipeName);
-        stepDetailsActivityIntent.putExtra(KEY_STEP_NUMBER, stepNumber);
-        stepDetailsActivityIntent.putExtra(KEY_NUM_OF_STEPS, numOfSteps);
-        startActivity(stepDetailsActivityIntent);
+        if(displayedOnTablet) {
+            StepDetailsFragment fragment = new StepDetailsFragment();
+            fragment.setStepNumber(stepNumber);
+            fragment.setRecipeName(recipeName);
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction()
+                    .replace(R.id.fragment_step_details_tablet, fragment)
+                    .commit();
+        } else {
+            Intent stepDetailsActivityIntent = new Intent(this, StepDetailsActivity.class);
+            stepDetailsActivityIntent.putExtra(KEY_RECIPE_NAME, recipeName);
+            stepDetailsActivityIntent.putExtra(KEY_STEP_NUMBER, stepNumber);
+            stepDetailsActivityIntent.putExtra(KEY_NUM_OF_STEPS, numOfSteps);
+            startActivity(stepDetailsActivityIntent);
+        }
     }
 }

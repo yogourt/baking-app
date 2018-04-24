@@ -2,4 +2,6 @@
     <string name="app_name">Baking App</string>
     <string name="ingredients_label">Ingredients</string>
 
+    <string name="prev_step_label">&#60; Prev</string>
+    <string name="next_step_label">Next &#62;</string>
 </resources>
