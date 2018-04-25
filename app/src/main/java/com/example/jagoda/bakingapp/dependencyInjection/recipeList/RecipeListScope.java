@@ -1,4 +1,4 @@
-package com.example.jagoda.bakingapp.dependencyInjection.recipesList;
+package com.example.jagoda.bakingapp.dependencyInjection.recipeList;
 
 
 import java.lang.annotation.Retention;
@@ -8,5 +8,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.CLASS)
-public @interface RecipesListScope {
+public @interface RecipeListScope {
 }

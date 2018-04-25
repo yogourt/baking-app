@@ -2,8 +2,8 @@ package com.example.jagoda.bakingapp.model.sync;
 
 import com.example.jagoda.bakingapp.dependencyInjection.app.BakingApp;
 import com.example.jagoda.bakingapp.model.Recipe;
-import com.example.jagoda.bakingapp.model.RecipesApi;
-import com.example.jagoda.bakingapp.model.localRepository.RecipesRepository;
+import com.example.jagoda.bakingapp.model.RecipeApi;
+import com.example.jagoda.bakingapp.model.localRepository.RecipeRepository;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
@@ -18,7 +18,7 @@ import timber.log.Timber;
 
 public class SyncJobService extends JobService {
 
-    RecipesApi recipesApi;
+    RecipeApi recipesApi;
 
     @Override
     public void onCreate() {
@@ -40,7 +40,7 @@ public class SyncJobService extends JobService {
                         List<Recipe> recipes = response.body();
 
                         if (recipes == null) return;
-                        RecipesRepository.saveRecipes(recipes);
+                        RecipeRepository.saveRecipes(recipes);
                         jobFinished(job, false);
 
                         Timber.d("Job finished");

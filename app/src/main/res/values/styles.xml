@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/copper_rose</item>
         <item name="colorPrimaryDark">@color/dark</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/rose_bud</item>
     </style>
 
     <style name="RecipeListItemStyle">
@@ -27,6 +27,12 @@
     <style name="StepTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/step_text_size</item>
+    </style>
+
+    <style name="WidgetTitleStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/widget_title_text_size</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 

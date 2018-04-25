@@ -14,7 +14,7 @@ import com.example.jagoda.bakingapp.model.Step;
 
 import java.util.List;
 
-public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.StepViewHolder> {
+public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepViewHolder> {
 
     private Context context;
 
@@ -33,7 +33,7 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
         void onClick(int stepNumber, int numOfSteps);
     }
 
-    public StepsListAdapter(Context context, OnItemClickListener onItemClickListener) {
+    public StepListAdapter(Context context, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.onItemClickListener = onItemClickListener;
     }
@@ -51,10 +51,12 @@ public class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.Step
         holder.stepNumberTv.setText(String.valueOf(position + 1));
         holder.stepShortDescTv.setText(stepsList.get(position).getShortDescription());
 
-        if(position == selectedPosition) holder.itemView.setBackgroundColor(
-                context.getResources().getColor(R.color.gun_powder));
-        else holder.itemView.setBackgroundColor(context
-                .getResources().getColor(R.color.dark));
+        //on tablet highlight the selected step by changing background color
+        if(position == selectedPosition && context.getResources().getBoolean(R.bool.displayed_in_tablet)) {
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.gun_powder));
+        } else {
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.dark));
+        }
     }
 
     @Override

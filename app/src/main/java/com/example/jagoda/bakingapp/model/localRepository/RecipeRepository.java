@@ -12,7 +12,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 
-public class RecipesRepository {
+public class RecipeRepository {
 
     public static List<Recipe> getRecipes() {
         return Realm.getDefaultInstance().where(Recipe.class).findAll();
@@ -23,6 +23,22 @@ public class RecipesRepository {
                 .equalTo("name", recipeName).findFirst();
 
         if(recipe != null) {
+            RealmList<Ingredient> ingredients = recipe.getIngredients();
+
+            ArrayList<Ingredient> ingredientsList = new ArrayList<>();
+            ingredientsList.addAll(ingredients);
+            return ingredientsList;
+        }
+        else return null;
+    }
+
+    public static ArrayList<Ingredient> getIngredientsForWidget(String recipeName) {
+        Recipe recipe = Realm.getDefaultInstance().where(Recipe.class)
+                .equalTo("name", recipeName).findFirst();
+
+        if(recipe != null) {
+        recipe = Realm.getDefaultInstance().copyFromRealm(recipe);
+
             RealmList<Ingredient> ingredients = recipe.getIngredients();
 
             ArrayList<Ingredient> ingredientsList = new ArrayList<>();
@@ -55,6 +71,11 @@ public class RecipesRepository {
             return steps.get(stepNumber - 1);
         }
         else return null;
+    }
+
+    public static String getFirstRecipeName() {
+        Recipe recipe = Realm.getDefaultInstance().where(Recipe.class).findFirst();
+        return recipe.getName();
     }
 
     public static void saveRecipes(final List<Recipe> recipesList) {

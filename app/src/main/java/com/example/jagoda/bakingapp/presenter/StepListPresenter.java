@@ -1,35 +1,43 @@
 package com.example.jagoda.bakingapp.presenter;
 
 
+import android.content.Context;
+import android.preference.PreferenceManager;
 import android.util.ArrayMap;
 
 import com.example.jagoda.bakingapp.R;
 import com.example.jagoda.bakingapp.model.Ingredient;
-import com.example.jagoda.bakingapp.model.localRepository.RecipesRepository;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepsListActivity;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepsListAdapter;
-import com.example.jagoda.bakingapp.view.recipesList.RecipesListActivity;
+import com.example.jagoda.bakingapp.model.localRepository.RecipeRepository;
+import com.example.jagoda.bakingapp.view.recipeSteps.StepListActivity;
+import com.example.jagoda.bakingapp.view.recipeSteps.StepListAdapter;
+import com.example.jagoda.bakingapp.widget.IngredientsWidgetProvider;
+import com.example.jagoda.bakingapp.widget.UpdateWidgetService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class StepsListPresenter {
+import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.KEY_RECIPE_NAME;
+import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.KEY_STEP_NUMBER;
+
+public class StepListPresenter {
 
     private static final String KEY_INGREDIENTS_TITLE = "ingredients_title";
     private static final String KEY_INGREDIENT_QUANTITY = "ingredient_quantity";
     private static final String KEY_INGREDIENT_MEASURE = "ingredient_measure";
     private static final String KEY_INGREDIENT = "ingredient";
 
-    @Inject
-    StepsListActivity activity;
+    public static final String SHARED_PREFERENCES_NAME = "fav_recipes";
 
     @Inject
-    StepsListAdapter adapter;
+    StepListActivity activity;
+
+    @Inject
+    StepListAdapter adapter;
 
     public ArrayList<ArrayList<ArrayMap<String, String>>> getIngredients(String recipeName) {
-        ArrayList<Ingredient> ingredients = RecipesRepository.getRecipeIngredients(recipeName);
+        ArrayList<Ingredient> ingredients = RecipeRepository.getRecipeIngredients(recipeName);
 
         if(ingredients == null) return null;
 
@@ -58,7 +66,7 @@ public class StepsListPresenter {
         return new int[]{R.id.quantity_text_view, R.id.measure_text_view, R.id.ingredient_text_view};
     }
     public void setRecipeSteps(String recipeName) {
-        adapter.setStepsList(RecipesRepository.getRecipeSteps(recipeName));
+        adapter.setStepsList(RecipeRepository.getRecipeSteps(recipeName));
     }
 
     public List<ArrayMap<String, String>> getIngredientsTitle() {
@@ -67,6 +75,14 @@ public class StepsListPresenter {
         titleArrayMap.put(KEY_INGREDIENTS_TITLE, activity.getString(R.string.ingredients_label));
         titleArrayList.add(titleArrayMap);
         return titleArrayList;
+    }
+
+    public void showInWidget() {
+
+        String recipeName = activity.getIntent().getStringExtra(KEY_RECIPE_NAME);
+        activity.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
+                .putString(KEY_RECIPE_NAME, recipeName).apply();
+        UpdateWidgetService.startActionUpdateWidgets(activity);
     }
 
 }

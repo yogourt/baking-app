@@ -4,4 +4,6 @@
 
     <string name="prev_step_label">&#60; Prev</string>
     <string name="next_step_label">Next &#62;</string>
+    <string name="add_widget">Add widget</string>
+    <string name="show_in_widget_label">Show in widget</string>
 </resources>

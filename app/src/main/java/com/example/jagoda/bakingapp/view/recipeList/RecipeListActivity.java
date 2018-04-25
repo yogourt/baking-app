@@ -1,5 +1,6 @@
-package com.example.jagoda.bakingapp.view.recipesList;
+package com.example.jagoda.bakingapp.view.recipeList;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,11 +9,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.jagoda.bakingapp.R;
 import com.example.jagoda.bakingapp.dependencyInjection.app.BakingApp;
-import com.example.jagoda.bakingapp.dependencyInjection.recipesList.DaggerRecipesListComponent;
-import com.example.jagoda.bakingapp.dependencyInjection.recipesList.RecipesListComponent;
-import com.example.jagoda.bakingapp.dependencyInjection.recipesList.RecipesListModule;
+import com.example.jagoda.bakingapp.dependencyInjection.recipeList.DaggerRecipeListComponent;
+import com.example.jagoda.bakingapp.dependencyInjection.recipeList.RecipeListComponent;
+import com.example.jagoda.bakingapp.dependencyInjection.recipeList.RecipeListModule;
 import com.example.jagoda.bakingapp.model.sync.FirstSyncUtils;
-import com.example.jagoda.bakingapp.presenter.RecipesListPresenter;
+import com.example.jagoda.bakingapp.presenter.RecipeListPresenter;
 
 
 import javax.inject.Inject;
@@ -20,15 +21,13 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipesListActivity extends AppCompatActivity {
-
-    private static final int COLUMN_NUM_IN_TABLET = 3;
+public class RecipeListActivity extends AppCompatActivity {
 
     @Inject
-    RecipesListPresenter presenter;
+    RecipeListPresenter presenter;
 
     @Inject
-    RecipesListAdapter adapter;
+    RecipeListAdapter adapter;
 
     @Inject
     FirstSyncUtils utils;
@@ -41,9 +40,9 @@ public class RecipesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes_list);
 
-        RecipesListComponent component = DaggerRecipesListComponent.builder()
+        RecipeListComponent component = DaggerRecipeListComponent.builder()
                 .bakingAppComponent(BakingApp.get(this).getComponent())
-                .recipesListModule(new RecipesListModule(this))
+                .recipeListModule(new RecipeListModule(this))
                 .build();
 
         component.injectRecipesListActivity(this);
@@ -61,12 +60,7 @@ public class RecipesListActivity extends AppCompatActivity {
 
     private void prepareRecipesRecyclerView() {
         recipesRecyclerView.setAdapter(adapter);
-
-        if(getResources().getBoolean(R.bool.displayed_in_tablet)) {
-            recipesRecyclerView.setLayoutManager(new GridLayoutManager(this, COLUMN_NUM_IN_TABLET));
-        } else {
-            recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }
+        recipesRecyclerView.setLayoutManager(presenter.getLayoutManager());
         presenter.setRecipes();
     }
 }

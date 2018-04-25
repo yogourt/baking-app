@@ -5,7 +5,6 @@ import io.realm.annotations.PrimaryKey;
 
 public class Step extends RealmObject {
 
-    @PrimaryKey
     private int id;
     private String shortDescription;
     private String description;

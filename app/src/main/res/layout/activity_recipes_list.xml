@@ -8,4 +8,4 @@
     android:paddingTop="@dimen/recipes_padding"
     android:paddingBottom="@dimen/recipes_padding"
     android:background="@color/dark"
-    tools:context=".view.recipesList.RecipesListActivity" />
+    tools:context=".view.recipeList.RecipeListActivity" />

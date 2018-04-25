@@ -5,26 +5,19 @@ import android.app.Application;
 import android.app.Service;
 import android.support.v4.app.Fragment;
 
-import com.example.jagoda.bakingapp.model.Recipe;
-import com.example.jagoda.bakingapp.model.RecipesApi;
-import com.example.jagoda.bakingapp.model.localRepository.RecipesRepository;
+import com.example.jagoda.bakingapp.model.RecipeApi;
 import com.example.jagoda.bakingapp.model.sync.SyncUtilities;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import io.realm.Realm;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 
 
 public class BakingApp extends Application {
 
     @Inject
-    RecipesApi recipesApi;
+    RecipeApi recipesApi;
 
     BakingAppComponent component;
 

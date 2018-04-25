@@ -13,12 +13,8 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 
 import com.example.jagoda.bakingapp.R;
-import com.example.jagoda.bakingapp.dependencyInjection.stepsList.StepsListComponent;
-import com.example.jagoda.bakingapp.presenter.StepsListPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.example.jagoda.bakingapp.dependencyInjection.stepList.StepListComponent;
+import com.example.jagoda.bakingapp.presenter.StepListPresenter;
 
 import javax.inject.Inject;
 
@@ -30,24 +26,24 @@ import timber.log.Timber;
 /**
  *
  */
-public class StepsListFragment extends Fragment {
+public class StepListFragment extends Fragment {
 
     public static final String KEY_RECIPE_NAME = "recipe_name";
 
     private String recipeName;
 
     @Inject
-    StepsListPresenter presenter;
+    StepListPresenter presenter;
 
     @Inject
-    StepsListAdapter adapter;
+    StepListAdapter adapter;
 
     @BindView(R.id.ingredients_list_view)
     ExpandableListView ingredientsListView;
     @BindView(R.id.steps_recycler_view)
     RecyclerView stepsRecyclerView;
 
-    public StepsListFragment() {
+    public StepListFragment() {
         // Required empty public constructor
     }
 
@@ -72,9 +68,9 @@ public class StepsListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if(getActivity() != null) {
-            StepsListComponent component = ((StepsListActivity) getActivity()).getComponent();
-            component.injectStepsListFragment(this);
-            component.injectStepsListPresenter(presenter);
+            StepListComponent component = ((StepListActivity) getActivity()).getComponent();
+            component.injectStepListFragment(this);
+            component.injectStepListPresenter(presenter);
         }
 
         //this calls mast be done after fragment is injected as methods uses presenter

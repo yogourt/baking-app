@@ -5,15 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/dark"
-    tools:context="com.example.jagoda.bakingapp.view.recipeSteps.StepsListFragment">
+    tools:context="com.example.jagoda.bakingapp.view.recipeSteps.StepListFragment">
 
     <ExpandableListView
         android:id="@+id/ingredients_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:layout_marginStart="@dimen/ingredients_margin"
+        android:layout_marginEnd="@dimen/ingredients_margin"
         android:groupIndicator="@drawable/ic_arrow_drop_down"
+        android:indicatorStart="40dp"
+        android:indicatorEnd="75dp"
         android:layout_marginBottom="@dimen/ingredients_margin"/>
+
 
     <android.support.v7.widget.AppCompatImageView
         android:layout_width="@dimen/muffin_size"

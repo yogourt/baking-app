@@ -15,6 +15,7 @@ import com.example.jagoda.bakingapp.dependencyInjection.stepDetails.StepDetailsC
 import com.example.jagoda.bakingapp.dependencyInjection.stepDetails.StepDetailsModule;
 import com.example.jagoda.bakingapp.model.Step;
 import com.example.jagoda.bakingapp.presenter.StepDetailsPresenter;
+import com.example.jagoda.bakingapp.utils.MimeTypeUtils;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
@@ -144,8 +145,14 @@ public class StepDetailsFragment extends Fragment {
         exoPlayerView.setPlayer(player);
 
         String videoUrl = recipeStep.getVideoURL();
+        String thumbnailUrl = recipeStep.getThumbnailURL();
 
-        if(videoUrl.isEmpty()) {
+        //catch if video was passed as a thumbnail
+        if(videoUrl.isEmpty() && MimeTypeUtils.isVideoFile(thumbnailUrl)) {
+            videoUrl = thumbnailUrl;
+        }
+
+        if(videoUrl.isEmpty() || !MimeTypeUtils.isVideoFile(videoUrl)) {
             exoPlayerView.setVisibility(View.GONE);
         } else {
             exoPlayerView.setVisibility(View.VISIBLE);
@@ -153,10 +160,7 @@ public class StepDetailsFragment extends Fragment {
             player.prepare(mediaSource);
             player.setPlayWhenReady(true);
         }
-    }
 
-    public void setNumOfSteps(int numOfSteps) {
-        this.numOfSteps = numOfSteps;
     }
 
     public void setStepNumber(int stepNumber) {

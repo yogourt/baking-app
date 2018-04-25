@@ -1,4 +1,4 @@
-package com.example.jagoda.bakingapp.dependencyInjection.stepsList;
+package com.example.jagoda.bakingapp.dependencyInjection.stepList;
 
 
 import java.lang.annotation.Retention;
@@ -8,5 +8,5 @@ import javax.inject.Scope;
 
 @Scope
 @Retention(RetentionPolicy.CLASS)
-public @interface StepsListScope {
+public @interface StepListScope {
 }

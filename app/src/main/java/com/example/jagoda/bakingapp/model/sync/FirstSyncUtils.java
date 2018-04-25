@@ -2,9 +2,9 @@ package com.example.jagoda.bakingapp.model.sync;
 
 
 import com.example.jagoda.bakingapp.model.Recipe;
-import com.example.jagoda.bakingapp.model.RecipesApi;
-import com.example.jagoda.bakingapp.model.localRepository.RecipesRepository;
-import com.example.jagoda.bakingapp.presenter.RecipesListPresenter;
+import com.example.jagoda.bakingapp.model.RecipeApi;
+import com.example.jagoda.bakingapp.model.localRepository.RecipeRepository;
+import com.example.jagoda.bakingapp.presenter.RecipeListPresenter;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import timber.log.Timber;
 public class FirstSyncUtils {
 
     @Inject
-    RecipesApi recipesApi;
+    RecipeApi recipesApi;
 
     @Inject
-    RecipesListPresenter presenter;
+    RecipeListPresenter presenter;
 
     public void firstSync() {
 
@@ -35,8 +35,9 @@ public class FirstSyncUtils {
                 List<Recipe> recipes = response.body();
 
                 if (recipes == null) return;
-                RecipesRepository.saveRecipes(recipes);
+                RecipeRepository.saveRecipes(recipes);
                 presenter.setRecipes();
+                presenter.prepareSharedPreferences();
 
                 Timber.d("Job finished");
             }

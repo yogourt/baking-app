@@ -2,7 +2,7 @@ package com.example.jagoda.bakingapp.presenter;
 
 import android.net.Uri;
 
-import com.example.jagoda.bakingapp.model.localRepository.RecipesRepository;
+import com.example.jagoda.bakingapp.model.localRepository.RecipeRepository;
 import com.example.jagoda.bakingapp.model.Step;
 import com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
@@ -21,7 +21,7 @@ public class StepDetailsPresenter {
     StepDetailsFragment fragment;
 
     public Step getStep(String recipeName, int stepNumber) {
-        return RecipesRepository.getStep(recipeName, stepNumber);
+        return RecipeRepository.getStep(recipeName, stepNumber);
     }
 
     public MediaSource getMediaSource(String videoURL) {

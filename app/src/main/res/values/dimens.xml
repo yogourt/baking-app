@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_padding">8dp</dimen>
     <dimen name="activity_padding">16dp</dimen>
     <dimen name="recipes_margin">8dp</dimen>
     <dimen name="icon_margin">8dp</dimen>
@@ -7,7 +10,7 @@
     <dimen name="recipes_padding">8dp</dimen>
     <dimen name="fragment_margin">8dp</dimen>
     <dimen name="detailed_desc_margin">16dp</dimen>
-    <dimen name="number_space">8dp</dimen>
+    <dimen name="number_space">16dp</dimen>
     <dimen name="ingredient_text_view_space">4dp</dimen>
     <dimen name="ingredients_label_margin">16dp</dimen>
     <dimen name="list_item_padding">16dp</dimen>
@@ -15,10 +18,14 @@
     <dimen name="step_margin">4dp</dimen>
     <dimen name="muffin_size">50dp</dimen>
     <dimen name="photo_height">150dp</dimen>
+    <dimen name="note_icon_size">40dp</dimen>
+    <dimen name="note_icon_margin">16dp</dimen>
 
     <dimen name="recipe_list_text_size">22sp</dimen>
     <dimen name="desc_text_size">18sp</dimen>
     <dimen name="ingredients_title_size">24sp</dimen>
     <dimen name="step_text_size">20sp</dimen>
+    <dimen name="widget_text_size">14sp</dimen>
+    <dimen name="widget_title_text_size">18dp</dimen>
 
-    </resources>
+</resources>

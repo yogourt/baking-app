@@ -1,4 +1,4 @@
-package com.example.jagoda.bakingapp.view.recipesList;
+package com.example.jagoda.bakingapp.view.recipeList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.jagoda.bakingapp.R;
 import com.example.jagoda.bakingapp.model.Recipe;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepsListActivity;
+import com.example.jagoda.bakingapp.view.recipeSteps.StepListActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,14 +21,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.jagoda.bakingapp.view.recipeSteps.StepsListFragment.KEY_RECIPE_NAME;
+import static com.example.jagoda.bakingapp.view.recipeSteps.StepListFragment.KEY_RECIPE_NAME;
 
-public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
     private Context context;
     private List<Recipe> recipesList;
 
-    public RecipesListAdapter(Context context) {
+    public RecipeListAdapter(Context context) {
         this.context = context;
     }
 
@@ -54,6 +54,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
         if(!recipesList.get(position).getImage().isEmpty()) {
             Uri imageUri = Uri.parse(recipesList.get(position).getImage());
+            //Uri imageUri =
             Picasso.get()
                     .load(imageUri)
                     .into(holder.cakeImageView);
@@ -87,7 +88,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
         @Override
         public void onClick(View view) {
-            Intent stepsListIntent = new Intent(context, StepsListActivity.class);
+            Intent stepsListIntent = new Intent(context, StepListActivity.class);
             stepsListIntent.putExtra(KEY_RECIPE_NAME, recipesList.get(getAdapterPosition()).getName());
             context.startActivity(stepsListIntent);
         }

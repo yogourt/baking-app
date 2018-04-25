@@ -9,7 +9,7 @@ import retrofit2.http.GET;
  * This is Api declaration for Retrofit's network request.
  */
 
-public interface RecipesApi {
+public interface RecipeApi {
 
     @GET("topher/2017/May/59121517_baking/baking.json")
     Call<List<Recipe>> getRecipesList();

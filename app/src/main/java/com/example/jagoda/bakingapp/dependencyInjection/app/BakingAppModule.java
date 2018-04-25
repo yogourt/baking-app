@@ -1,15 +1,12 @@
 package com.example.jagoda.bakingapp.dependencyInjection.app;
 
 
-import com.example.jagoda.bakingapp.model.RecipesApi;
-import com.example.jagoda.bakingapp.model.localRepository.RecipesRepository;
+import com.example.jagoda.bakingapp.model.RecipeApi;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.realm.RealmConfiguration;
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BakingAppModule {
 
     @Provides
-    RecipesApi provideRecipesApi(Retrofit retrofit) {
-        return retrofit.create(RecipesApi.class);
+    RecipeApi provideRecipesApi(Retrofit retrofit) {
+        return retrofit.create(RecipeApi.class);
     }
 
     @Provides
