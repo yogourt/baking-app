@@ -39,8 +39,6 @@ public class StepDetailsFragment extends Fragment {
     public static final String KEY_NUM_OF_STEPS = "num_of_steps";
     public static final String KEY_RECIPE_NAME = "recipe_name";
 
-    private static final String KEY_POSITION = "position";
-
     @Inject
     StepDetailsPresenter presenter;
 
@@ -62,6 +60,8 @@ public class StepDetailsFragment extends Fragment {
     private int stepNumber;
     private int numOfSteps;
     private String recipeName;
+
+    private ButtonCallback buttonCallback;
 
     private boolean displayedInTablet;
 
@@ -86,16 +86,10 @@ public class StepDetailsFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         displayedInTablet = getActivity().findViewById(R.id.tablet_layout) != null;
-        if(getActivity() != null && getActivity().getIntent() != null && !displayedInTablet) {
-            recipeName = getActivity().getIntent().getStringExtra(KEY_RECIPE_NAME);
-            stepNumber = getActivity().getIntent().getIntExtra(KEY_STEP_NUMBER, 0);
-            numOfSteps = getActivity().getIntent().getIntExtra(KEY_NUM_OF_STEPS, 0);
-
-            Timber.d("View preparing");
-
-        }
 
         if(displayedInTablet) view.setBackgroundColor(getResources().getColor(R.color.gun_powder));
+
+        buttonCallback = (ButtonCallback)getActivity();
 
         prepareView();
         prepareButtons();
@@ -129,23 +123,6 @@ public class StepDetailsFragment extends Fragment {
         prepareExoPlayer();
     }
 
-    private void prepareButtons() {
-        nextStepButton.setOnClickListener(new TextView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(stepNumber < numOfSteps) stepNumber++;
-                prepareView();
-            }
-        });
-        prevStepButton.setOnClickListener(new TextView.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(stepNumber > 1) stepNumber--;
-                prepareView();
-            }
-        });
-    }
-
     private void prepareExoPlayer() {
 
         exoPlayerView.setPlayer(player);
@@ -169,12 +146,44 @@ public class StepDetailsFragment extends Fragment {
 
     }
 
+    //interface implemented by host activity
+    public interface ButtonCallback {
+        void prevButtonClicked();
+        void nextButtonClicked();
+    }
+
+    private void prepareButtons() {
+
+        nextStepButton.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stepNumber < numOfSteps) {
+                    player.release();
+                    buttonCallback.nextButtonClicked();
+                }
+            }
+        });
+        prevStepButton.setOnClickListener(new TextView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stepNumber > 1) {
+                    player.release();
+                    buttonCallback.prevButtonClicked();
+                }
+            }
+        });
+    }
+
     public void setStepNumber(int stepNumber) {
         this.stepNumber = stepNumber;
     }
 
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
+    }
+
+    public void setNumOfSteps(int numOfSteps) {
+        this.numOfSteps = numOfSteps;
     }
 
     public boolean isExoPlayerVisible() {
