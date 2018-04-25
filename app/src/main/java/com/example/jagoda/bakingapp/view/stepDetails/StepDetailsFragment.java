@@ -91,6 +91,28 @@ public class StepDetailsFragment extends Fragment {
 
         buttonCallback = (ButtonCallback)getActivity();
 
+        view.setOnTouchListener(new OnSwipeTouchListener(getContext()){
+
+            @Override
+            public void onSwipeRight() {
+                if(stepNumber > 1) {
+                    stepNumber--;
+                    player.release();
+                    buttonCallback.prevButtonClicked();
+                }
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                if(stepNumber < numOfSteps) {
+                    stepNumber++;
+                    player.release();
+                    buttonCallback.nextButtonClicked();
+                }
+            }
+        });
+
+
         prepareView();
         prepareButtons();
 
