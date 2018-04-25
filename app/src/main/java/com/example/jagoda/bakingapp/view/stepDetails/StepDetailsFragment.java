@@ -1,11 +1,15 @@
 package com.example.jagoda.bakingapp.view.stepDetails;
 
 
+import android.content.res.Configuration;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.jagoda.bakingapp.R;
@@ -34,6 +38,8 @@ public class StepDetailsFragment extends Fragment {
     public static final String KEY_STEP_NUMBER = "step_number";
     public static final String KEY_NUM_OF_STEPS = "num_of_steps";
     public static final String KEY_RECIPE_NAME = "recipe_name";
+
+    private static final String KEY_POSITION = "position";
 
     @Inject
     StepDetailsPresenter presenter;
@@ -169,5 +175,9 @@ public class StepDetailsFragment extends Fragment {
 
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
+    }
+
+    public boolean isExoPlayerVisible() {
+        return (exoPlayerView.getVisibility() == View.VISIBLE);
     }
 }

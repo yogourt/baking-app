@@ -9,32 +9,13 @@
     android:background="@color/dark"
     android:orientation="vertical">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/video_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:resize_mode="fixed_width"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/step_detailed_desc_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/detailed_desc_margin"
-        style="@style/DescTextStyle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_view"
-        tools:text="Recipe Introduction" />
-
     <TextView
         android:id="@+id/prev_step_button"
+        style="@style/IngredientsTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/prev_step_label"
         android:layout_margin="@dimen/detailed_desc_margin"
-        style="@style/IngredientsTitleStyle"
+        android:text="@string/prev_step_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -47,5 +28,25 @@
         style="@style/IngredientsTitleStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:resize_mode="fixed_width"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/step_detailed_desc_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/detailed_desc_margin"
+        style="@style/DescTextStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_view"
+        app:layout_constraintBottom_toTopOf="@+id/next_step_button"
+        tools:text="Recipe Introduction" />
 
 </android.support.constraint.ConstraintLayout>

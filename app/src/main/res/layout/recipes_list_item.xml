@@ -29,26 +29,28 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_muffin" />
 
+        <ImageView
+            android:id="@+id/cake_image_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/photo_height"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/recipe_name_text_view"
             style="@style/RecipeListItemStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white_semi"
+            android:background="@color/gun_powder_semi"
             android:gravity="end"
             android:paddingEnd="@dimen/recipe_name_right_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             tools:text="Blablablablablablabla" />
 
-        <ImageView
-            android:id="@+id/cake_image_view"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/photo_height"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

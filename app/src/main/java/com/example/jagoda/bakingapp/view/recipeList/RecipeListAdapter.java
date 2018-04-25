@@ -54,7 +54,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         if(!recipesList.get(position).getImage().isEmpty()) {
             Uri imageUri = Uri.parse(recipesList.get(position).getImage());
-            //Uri imageUri =
             Picasso.get()
                     .load(imageUri)
                     .into(holder.cakeImageView);

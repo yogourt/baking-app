@@ -26,7 +26,8 @@
         <activity
             android:name=".view.stepDetails.StepDetailsActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".view.recipeSteps.StepListActivity" />
+            android:configChanges="orientation|screenSize|layoutDirection"
+            android:parentActivityName=".view.recipeSteps.StepListActivity"/>
 
         <service
             android:name=".model.sync.SyncJobService"
