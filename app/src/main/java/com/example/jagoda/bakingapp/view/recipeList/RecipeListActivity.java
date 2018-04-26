@@ -1,10 +1,8 @@
 package com.example.jagoda.bakingapp.view.recipeList;
 
-import android.content.res.Configuration;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.jagoda.bakingapp.R;
@@ -14,6 +12,7 @@ import com.example.jagoda.bakingapp.dependencyInjection.recipeList.RecipeListCom
 import com.example.jagoda.bakingapp.dependencyInjection.recipeList.RecipeListModule;
 import com.example.jagoda.bakingapp.model.sync.FirstSyncUtils;
 import com.example.jagoda.bakingapp.presenter.RecipeListPresenter;
+import com.example.jagoda.bakingapp.test.SimpleIdlingResource;
 
 
 import javax.inject.Inject;
@@ -22,6 +21,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipeListActivity extends AppCompatActivity {
+
+    @VisibleForTesting
+    @Inject
+    SimpleIdlingResource idlingResource;
 
     @Inject
     RecipeListPresenter presenter;
@@ -54,13 +57,22 @@ public class RecipeListActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources()
                 .getDrawable(R.drawable.gradient_background));
 
-        prepareRecipesRecyclerView();
+    }
 
+    //we call it here to make sure that idlingResource is already initialized
+    @Override
+    protected void onStart() {
+        super.onStart();
+        prepareRecipesRecyclerView();
     }
 
     private void prepareRecipesRecyclerView() {
         recipesRecyclerView.setAdapter(adapter);
         recipesRecyclerView.setLayoutManager(presenter.getLayoutManager());
         presenter.setRecipes();
+    }
+
+    public SimpleIdlingResource getIdlingResource() {
+        return idlingResource;
     }
 }

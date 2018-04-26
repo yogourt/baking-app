@@ -2,6 +2,7 @@ package com.example.jagoda.bakingapp.dependencyInjection.recipeList;
 
 import com.example.jagoda.bakingapp.model.sync.FirstSyncUtils;
 import com.example.jagoda.bakingapp.presenter.RecipeListPresenter;
+import com.example.jagoda.bakingapp.test.SimpleIdlingResource;
 import com.example.jagoda.bakingapp.view.recipeList.RecipeListActivity;
 import com.example.jagoda.bakingapp.view.recipeList.RecipeListAdapter;
 
@@ -40,4 +41,11 @@ public class RecipeListModule {
     FirstSyncUtils provideFirstSyncUtils() {
         return new FirstSyncUtils();
     }
+
+    @Provides
+    @RecipeListScope
+    SimpleIdlingResource provideSimpleIdlingResource() {
+        return new SimpleIdlingResource();
+    }
 }
+

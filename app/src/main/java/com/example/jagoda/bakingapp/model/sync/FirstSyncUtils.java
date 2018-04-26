@@ -1,10 +1,13 @@
 package com.example.jagoda.bakingapp.model.sync;
 
 
+import android.support.annotation.VisibleForTesting;
+
 import com.example.jagoda.bakingapp.model.Recipe;
 import com.example.jagoda.bakingapp.model.RecipeApi;
 import com.example.jagoda.bakingapp.model.localRepository.RecipeRepository;
 import com.example.jagoda.bakingapp.presenter.RecipeListPresenter;
+import com.example.jagoda.bakingapp.test.SimpleIdlingResource;
 
 import java.util.List;
 
@@ -17,6 +20,11 @@ import timber.log.Timber;
 
 public class FirstSyncUtils {
 
+
+    @VisibleForTesting
+    @Inject
+    SimpleIdlingResource idlingResource;
+
     @Inject
     RecipeApi recipesApi;
 
@@ -24,6 +32,8 @@ public class FirstSyncUtils {
     RecipeListPresenter presenter;
 
     public void firstSync() {
+
+        idlingResource.setIdleState(false);
 
         Timber.d("Job started");
 
@@ -40,6 +50,8 @@ public class FirstSyncUtils {
                 presenter.prepareSharedPreferences();
 
                 Timber.d("Job finished");
+
+                idlingResource.setIdleState(true);
             }
 
             @Override

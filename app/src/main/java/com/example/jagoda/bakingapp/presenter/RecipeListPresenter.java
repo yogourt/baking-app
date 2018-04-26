@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import com.example.jagoda.bakingapp.model.RecipeApi;
 import com.example.jagoda.bakingapp.model.Step;
 import com.example.jagoda.bakingapp.model.localRepository.RecipeRepository;
 import com.example.jagoda.bakingapp.model.sync.FirstSyncUtils;
+import com.example.jagoda.bakingapp.test.SimpleIdlingResource;
 import com.example.jagoda.bakingapp.view.recipeList.RecipeListActivity;
 import com.example.jagoda.bakingapp.view.recipeList.RecipeListAdapter;
 
