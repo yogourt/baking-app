@@ -1,15 +1,12 @@
 package com.example.jagoda.bakingapp.view.stepDetails;
 
 
-import android.content.res.Configuration;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.jagoda.bakingapp.R;
@@ -39,6 +36,9 @@ public class StepDetailsFragment extends Fragment {
     public static final String KEY_NUM_OF_STEPS = "num_of_steps";
     public static final String KEY_RECIPE_NAME = "recipe_name";
 
+    private static final String KEY_VIDEO_POSITION = "video_position";
+    private static final String KEY_PLAY_WHEN_READY = "play_when_ready";
+
     @Inject
     StepDetailsPresenter presenter;
 
@@ -60,6 +60,11 @@ public class StepDetailsFragment extends Fragment {
     private int stepNumber;
     private int numOfSteps;
     private String recipeName;
+
+    private long videoPosition;
+    private boolean playWhenReady;
+    private boolean restoreInstanceState;
+    private boolean restoreFromBackground;
 
     private ButtonCallback buttonCallback;
 
@@ -84,6 +89,15 @@ public class StepDetailsFragment extends Fragment {
         component.injectStepDetailsPresenter(presenter);
 
         ButterKnife.bind(this, view);
+
+        if(savedInstanceState != null) {
+            restoreInstanceState = true;
+            recipeName = savedInstanceState.getString(KEY_RECIPE_NAME);
+            stepNumber = savedInstanceState.getInt(KEY_STEP_NUMBER);
+            numOfSteps = savedInstanceState.getInt(KEY_NUM_OF_STEPS);
+            playWhenReady = savedInstanceState.getBoolean(KEY_PLAY_WHEN_READY);
+            videoPosition = savedInstanceState.getLong(KEY_VIDEO_POSITION);
+        }
 
         displayedInTablet = getActivity().findViewById(R.id.tablet_layout) != null;
 
@@ -123,15 +137,33 @@ public class StepDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onPause() {
+        super.onPause();
+        videoPosition = player.getCurrentPosition();
+        restoreFromBackground = true;
+        player.stop();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        player.stop();
+    public void onResume() {
+        super.onResume();
+        prepareExoPlayer();
+    }
+
+    @Override
+    public void onDestroy() {
         player.release();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(KEY_RECIPE_NAME, recipeName);
+        outState.putInt(KEY_STEP_NUMBER, stepNumber);
+        outState.putInt(KEY_NUM_OF_STEPS, numOfSteps);
+        outState.putLong(KEY_VIDEO_POSITION, videoPosition);
+        outState.putBoolean(KEY_PLAY_WHEN_READY, player.getPlayWhenReady());
+        super.onSaveInstanceState(outState);
     }
 
     public void prepareView() {
@@ -144,8 +176,6 @@ public class StepDetailsFragment extends Fragment {
 
         if(stepNumber == numOfSteps || displayedInTablet) nextStepButton.setVisibility(View.INVISIBLE);
         else nextStepButton.setVisibility(View.VISIBLE);
-
-        prepareExoPlayer();
     }
 
     private void prepareExoPlayer() {
@@ -165,8 +195,16 @@ public class StepDetailsFragment extends Fragment {
         } else {
             exoPlayerView.setVisibility(View.VISIBLE);
             MediaSource mediaSource = presenter.getMediaSource(videoUrl);
-            player.prepare(mediaSource);
-            player.setPlayWhenReady(true);
+
+            if(restoreInstanceState || restoreFromBackground) {
+                player.prepare(mediaSource, false, false );
+                player.seekTo(0, videoPosition);
+                player.setPlayWhenReady(playWhenReady);
+            }
+            else {
+                player.prepare(mediaSource);
+                player.setPlayWhenReady(true);
+            }
         }
 
     }

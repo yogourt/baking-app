@@ -26,8 +26,10 @@
         <activity
             android:name=".view.stepDetails.StepDetailsActivity"
             android:launchMode="singleTop"
-            android:configChanges="orientation|screenSize|layoutDirection"
             android:parentActivityName=".view.stepList.StepListActivity"/>
+
+
+        <!--android:configChanges="orientation|screenSize|layoutDirection" -->
 
         <service
             android:name=".model.sync.SyncJobService"

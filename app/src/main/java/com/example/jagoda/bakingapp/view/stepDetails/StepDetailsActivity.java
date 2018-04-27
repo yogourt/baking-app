@@ -44,10 +44,20 @@ public class StepDetailsActivity extends AppCompatActivity implements StepDetail
         getSupportActionBar().setBackgroundDrawable(getResources()
                 .getDrawable(R.drawable.gradient_background));
 
-        StepDetailsFragment fragment = createNewFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_step_details, fragment)
-                .commit();
+        if(savedInstanceState == null) {
+            StepDetailsFragment fragment = createNewFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_step_details, fragment)
+                    .commit();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /*if no android:configChanges is declared in the Manifest, onConfigurationChanged must
+        be called explicitly */
+        onConfigurationChanged(getResources().getConfiguration());
     }
 
     @Override
@@ -64,7 +74,6 @@ public class StepDetailsActivity extends AppCompatActivity implements StepDetail
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getSupportActionBar().show();
         }
-
     }
 
 
