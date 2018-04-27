@@ -4,7 +4,6 @@
     android:initialLayout="@layout/ingredient_list_widget"
     android:minHeight="110dp"
     android:minWidth="110dp"
-    android:previewImage="@drawable/ic_muffin"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen"/>
