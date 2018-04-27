@@ -63,6 +63,7 @@ public class StepListActivity extends AppCompatActivity implements StepListAdapt
              displayedOnTablet = true;
 
             StepDetailsFragment fragment = new StepDetailsFragment();
+            fragment.setRecipeName(recipeName);
             fragment.setStepNumber(1);
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()
@@ -106,6 +107,7 @@ public class StepListActivity extends AppCompatActivity implements StepListAdapt
 
         if(displayedOnTablet) {
             StepDetailsFragment fragment = new StepDetailsFragment();
+            fragment.setRecipeName(recipeName);
             fragment.setStepNumber(stepNumber);
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()

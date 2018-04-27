@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/fragment_steps_list"
-        android:name="com.example.jagoda.bakingapp.view.recipeSteps.StepListFragment"
+        android:name="com.example.jagoda.bakingapp.view.stepList.StepListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

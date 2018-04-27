@@ -89,28 +89,31 @@ public class StepDetailsFragment extends Fragment {
 
         if(displayedInTablet) view.setBackgroundColor(getResources().getColor(R.color.gun_powder));
 
-        buttonCallback = (ButtonCallback)getActivity();
+        if(!displayedInTablet) {
+            buttonCallback = (ButtonCallback) getActivity();
 
-        view.setOnTouchListener(new OnSwipeTouchListener(getContext()){
 
-            @Override
-            public void onSwipeRight() {
-                if(stepNumber > 1) {
-                    stepNumber--;
-                    player.release();
-                    buttonCallback.prevButtonClicked();
+            view.setOnTouchListener(new OnSwipeTouchListener(getContext()) {
+
+                @Override
+                public void onSwipeRight() {
+                    if (stepNumber > 1) {
+                        stepNumber--;
+                        player.release();
+                        buttonCallback.prevButtonClicked();
+                    }
                 }
-            }
 
-            @Override
-            public void onSwipeLeft() {
-                if(stepNumber < numOfSteps) {
-                    stepNumber++;
-                    player.release();
-                    buttonCallback.nextButtonClicked();
+                @Override
+                public void onSwipeLeft() {
+                    if (stepNumber < numOfSteps) {
+                        stepNumber++;
+                        player.release();
+                        buttonCallback.nextButtonClicked();
+                    }
                 }
-            }
-        });
+            });
+        }
 
 
         prepareView();
