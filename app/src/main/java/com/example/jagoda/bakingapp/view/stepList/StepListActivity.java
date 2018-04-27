@@ -1,4 +1,4 @@
-package com.example.jagoda.bakingapp.view.recipeSteps;
+package com.example.jagoda.bakingapp.view.stepList;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -64,7 +64,6 @@ public class StepListActivity extends AppCompatActivity implements StepListAdapt
 
             StepDetailsFragment fragment = new StepDetailsFragment();
             fragment.setStepNumber(1);
-            fragment.setRecipeName(recipeName);
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()
                     .add(R.id.fragment_step_details_tablet, fragment)
@@ -108,7 +107,6 @@ public class StepListActivity extends AppCompatActivity implements StepListAdapt
         if(displayedOnTablet) {
             StepDetailsFragment fragment = new StepDetailsFragment();
             fragment.setStepNumber(stepNumber);
-            fragment.setRecipeName(recipeName);
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()
                     .replace(R.id.fragment_step_details_tablet, fragment)

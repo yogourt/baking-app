@@ -21,5 +21,6 @@
     <color name="salmon">#FB867B</color>
     <color name="copper_rose">#c27983</color>
     <color name="rose_bud">#fca1a4</color>
+    <color name="ic_launcher_background">#303031</color>
 
 </resources>

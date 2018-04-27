@@ -3,16 +3,12 @@ package com.example.jagoda.bakingapp.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 
 import com.example.jagoda.bakingapp.R;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepListActivity;
-
-import timber.log.Timber;
+import com.example.jagoda.bakingapp.view.stepList.StepListActivity;
 
 import static com.example.jagoda.bakingapp.presenter.StepListPresenter.SHARED_PREFERENCES_NAME;
 import static com.example.jagoda.bakingapp.widget.ListRemoteViewFactory.KEY_RECIPE_NAME;

@@ -2,15 +2,13 @@ package com.example.jagoda.bakingapp.presenter;
 
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.util.ArrayMap;
 
 import com.example.jagoda.bakingapp.R;
 import com.example.jagoda.bakingapp.model.Ingredient;
 import com.example.jagoda.bakingapp.model.localRepository.RecipeRepository;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepListActivity;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepListAdapter;
-import com.example.jagoda.bakingapp.widget.IngredientsWidgetProvider;
+import com.example.jagoda.bakingapp.view.stepList.StepListActivity;
+import com.example.jagoda.bakingapp.view.stepList.StepListAdapter;
 import com.example.jagoda.bakingapp.widget.UpdateWidgetService;
 
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.KEY_RECIPE_NAME;
-import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.KEY_STEP_NUMBER;
 
 public class StepListPresenter {
 

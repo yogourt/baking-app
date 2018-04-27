@@ -1,4 +1,4 @@
-package com.example.jagoda.bakingapp.view.recipeSteps;
+package com.example.jagoda.bakingapp.view.stepList;
 
 
 import android.os.Bundle;

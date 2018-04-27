@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.jagoda.bakingapp.R;
 import com.example.jagoda.bakingapp.model.Recipe;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepListActivity;
+import com.example.jagoda.bakingapp.view.stepList.StepListActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.jagoda.bakingapp.view.recipeSteps.StepListFragment.KEY_RECIPE_NAME;
+import static com.example.jagoda.bakingapp.view.stepList.StepListFragment.KEY_RECIPE_NAME;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 

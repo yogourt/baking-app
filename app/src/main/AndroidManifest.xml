@@ -20,14 +20,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.recipeSteps.StepListActivity"
+            android:name=".view.stepList.StepListActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".view.recipeList.RecipeListActivity" />
         <activity
             android:name=".view.stepDetails.StepDetailsActivity"
             android:launchMode="singleTop"
             android:configChanges="orientation|screenSize|layoutDirection"
-            android:parentActivityName=".view.recipeSteps.StepListActivity"/>
+            android:parentActivityName=".view.stepList.StepListActivity"/>
 
         <service
             android:name=".model.sync.SyncJobService"

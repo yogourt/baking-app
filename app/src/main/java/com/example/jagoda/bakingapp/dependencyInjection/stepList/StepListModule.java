@@ -1,8 +1,8 @@
 package com.example.jagoda.bakingapp.dependencyInjection.stepList;
 
 import com.example.jagoda.bakingapp.presenter.StepListPresenter;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepListActivity;
-import com.example.jagoda.bakingapp.view.recipeSteps.StepListAdapter;
+import com.example.jagoda.bakingapp.view.stepList.StepListActivity;
+import com.example.jagoda.bakingapp.view.stepList.StepListAdapter;
 
 import dagger.Module;
 import dagger.Provides;
