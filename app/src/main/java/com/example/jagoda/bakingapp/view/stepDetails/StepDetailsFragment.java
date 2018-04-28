@@ -1,12 +1,15 @@
 package com.example.jagoda.bakingapp.view.stepDetails;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jagoda.bakingapp.R;
@@ -20,6 +23,7 @@ import com.example.jagoda.bakingapp.utils.MimeTypeUtils;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -50,6 +54,9 @@ public class StepDetailsFragment extends Fragment {
 
     @BindView(R.id.video_view)
     SimpleExoPlayerView exoPlayerView;
+
+    @BindView(R.id.thumbnail_image_view)
+    ImageView thumbnailImageView;
 
     @BindView(R.id.prev_step_button)
     TextView prevStepButton;
@@ -112,8 +119,6 @@ public class StepDetailsFragment extends Fragment {
                 @Override
                 public void onSwipeRight() {
                     if (stepNumber > 1) {
-                        stepNumber--;
-                        player.release();
                         buttonCallback.prevButtonClicked();
                     }
                 }
@@ -121,8 +126,6 @@ public class StepDetailsFragment extends Fragment {
                 @Override
                 public void onSwipeLeft() {
                     if (stepNumber < numOfSteps) {
-                        stepNumber++;
-                        player.release();
                         buttonCallback.nextButtonClicked();
                     }
                 }
@@ -141,6 +144,7 @@ public class StepDetailsFragment extends Fragment {
         super.onPause();
         videoPosition = player.getCurrentPosition();
         restoreFromBackground = true;
+        playWhenReady = player.getPlayWhenReady();
         player.stop();
     }
 
@@ -152,6 +156,7 @@ public class StepDetailsFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+        player.stop();
         player.release();
         super.onDestroy();
     }
@@ -162,7 +167,7 @@ public class StepDetailsFragment extends Fragment {
         outState.putInt(KEY_STEP_NUMBER, stepNumber);
         outState.putInt(KEY_NUM_OF_STEPS, numOfSteps);
         outState.putLong(KEY_VIDEO_POSITION, videoPosition);
-        outState.putBoolean(KEY_PLAY_WHEN_READY, player.getPlayWhenReady());
+        outState.putBoolean(KEY_PLAY_WHEN_READY, playWhenReady);
         super.onSaveInstanceState(outState);
     }
 
@@ -170,6 +175,14 @@ public class StepDetailsFragment extends Fragment {
 
         recipeStep = presenter.getStep(recipeName, stepNumber);
         detailedDescTv.setText(recipeStep.getDescription());
+
+        String thumbnailUrl = recipeStep.getThumbnailURL();
+
+        if(!TextUtils.isEmpty(thumbnailUrl) && MimeTypeUtils.isImageFile(thumbnailUrl)) {
+            Picasso.get()
+                    .load(Uri.parse(thumbnailUrl))
+                    .into(thumbnailImageView);
+        } else thumbnailImageView.setVisibility(View.GONE);
 
         if(stepNumber == 1 || displayedInTablet) prevStepButton.setVisibility(View.INVISIBLE);
         else prevStepButton.setVisibility(View.VISIBLE);
@@ -221,7 +234,6 @@ public class StepDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(stepNumber < numOfSteps) {
-                    player.release();
                     buttonCallback.nextButtonClicked();
                 }
             }
@@ -230,7 +242,6 @@ public class StepDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(stepNumber > 1) {
-                    player.release();
                     buttonCallback.prevButtonClicked();
                 }
             }

@@ -18,6 +18,7 @@
     <dimen name="step_margin">4dp</dimen>
     <dimen name="muffin_size">50dp</dimen>
     <dimen name="photo_height">150dp</dimen>
+    <dimen name="photo_width">225dp</dimen>
     <dimen name="note_icon_size">40dp</dimen>
     <dimen name="note_icon_margin">16dp</dimen>
 

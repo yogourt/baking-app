@@ -27,6 +27,8 @@ import static com.example.jagoda.bakingapp.view.stepDetails.StepDetailsFragment.
 
 public class StepDetailsActivity extends AppCompatActivity implements StepDetailsFragment.ButtonCallback{
 
+    public static final String KEY_STEP_NUMBER = "step_number";
+
     private String recipeName;
     private int stepNumber;
     private int numOfSteps;
@@ -36,20 +38,24 @@ public class StepDetailsActivity extends AppCompatActivity implements StepDetail
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_details);
 
-        recipeName = getIntent().getStringExtra(KEY_RECIPE_NAME);
-        setTitle(recipeName);
-        stepNumber = getIntent().getIntExtra(KEY_STEP_NUMBER, 0);
-        numOfSteps = getIntent().getIntExtra(KEY_NUM_OF_STEPS, 0);
-
         getSupportActionBar().setBackgroundDrawable(getResources()
                 .getDrawable(R.drawable.gradient_background));
 
+        recipeName = getIntent().getStringExtra(KEY_RECIPE_NAME);
+        setTitle(recipeName);
+        numOfSteps = getIntent().getIntExtra(KEY_NUM_OF_STEPS, 0);
+
         if(savedInstanceState == null) {
+            stepNumber = getIntent().getIntExtra(KEY_STEP_NUMBER, 0);
+
             StepDetailsFragment fragment = createNewFragment();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_step_details, fragment)
                     .commit();
+        } else {
+            stepNumber = savedInstanceState.getInt(KEY_STEP_NUMBER);
         }
+
     }
 
     @Override
@@ -58,6 +64,12 @@ public class StepDetailsActivity extends AppCompatActivity implements StepDetail
         /*if no android:configChanges is declared in the Manifest, onConfigurationChanged must
         be called explicitly */
         onConfigurationChanged(getResources().getConfiguration());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(KEY_STEP_NUMBER, stepNumber);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -92,7 +104,7 @@ public class StepDetailsActivity extends AppCompatActivity implements StepDetail
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_left,
                 R.anim.exit_to_right);
-        transaction.add(R.id.fragment_step_details, fragment);
+        transaction.replace(R.id.fragment_step_details, fragment);
         transaction.commit();
     }
 
@@ -104,7 +116,7 @@ public class StepDetailsActivity extends AppCompatActivity implements StepDetail
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.enter_from_right,
                 R.anim.exit_to_left);
-        transaction.add(R.id.fragment_step_details, fragment);
+        transaction.replace(R.id.fragment_step_details, fragment);
         transaction.commit();
     }
 }
