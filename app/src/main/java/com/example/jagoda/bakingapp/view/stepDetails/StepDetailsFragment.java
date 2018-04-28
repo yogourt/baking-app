@@ -63,6 +63,8 @@ public class StepDetailsFragment extends Fragment {
     @BindView(R.id.next_step_button)
     TextView nextStepButton;
 
+    private StepDetailsComponent component;
+
     private Step recipeStep;
     private int stepNumber;
     private int numOfSteps;
@@ -87,7 +89,7 @@ public class StepDetailsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_step_details, container, false);
 
-        StepDetailsComponent component = DaggerStepDetailsComponent.builder()
+        component = DaggerStepDetailsComponent.builder()
                 .stepDetailsModule(new StepDetailsModule(this))
                 .bakingAppComponent(BakingApp.get(this).getComponent())
                 .build();
@@ -142,23 +144,13 @@ public class StepDetailsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        videoPosition = player.getCurrentPosition();
-        restoreFromBackground = true;
-        playWhenReady = player.getPlayWhenReady();
-        player.stop();
+        releaseExoPlayer();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         prepareExoPlayer();
-    }
-
-    @Override
-    public void onDestroy() {
-        player.stop();
-        player.release();
-        super.onDestroy();
     }
 
     @Override
@@ -193,15 +185,11 @@ public class StepDetailsFragment extends Fragment {
 
     private void prepareExoPlayer() {
 
+        player = component.getSimpleExoPlayer();
+
         exoPlayerView.setPlayer(player);
 
         String videoUrl = recipeStep.getVideoURL();
-        String thumbnailUrl = recipeStep.getThumbnailURL();
-
-        //catch if video was passed as a thumbnail
-        if(videoUrl.isEmpty() && MimeTypeUtils.isVideoFile(thumbnailUrl)) {
-            videoUrl = thumbnailUrl;
-        }
 
         if(videoUrl.isEmpty() || !MimeTypeUtils.isVideoFile(videoUrl)) {
             exoPlayerView.setVisibility(View.GONE);
@@ -220,6 +208,15 @@ public class StepDetailsFragment extends Fragment {
             }
         }
 
+    }
+
+    private void releaseExoPlayer() {
+        videoPosition = player.getCurrentPosition();
+        restoreFromBackground = true;
+        playWhenReady = player.getPlayWhenReady();
+        player.stop();
+        player.release();
+        player = null;
     }
 
     //interface implemented by host activity

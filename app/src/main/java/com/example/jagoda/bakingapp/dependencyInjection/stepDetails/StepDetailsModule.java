@@ -36,7 +36,6 @@ public class StepDetailsModule {
     }
 
     @Provides
-    @StepDetailsScope
     SimpleExoPlayer provideSimpleExoPlayer() {
 
         SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(
