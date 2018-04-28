@@ -62,7 +62,7 @@ public class StepListActivity extends AppCompatActivity implements StepListAdapt
         if(findViewById(R.id.tablet_layout) != null) {
              displayedOnTablet = true;
 
-             if(savedInstanceState != null) {
+             if(savedInstanceState == null) {
                  StepDetailsFragment fragment = new StepDetailsFragment();
                  fragment.setRecipeName(recipeName);
                  fragment.setStepNumber(1);
