@@ -113,6 +113,8 @@ public class StepDetailsFragment extends Fragment {
         if(displayedInTablet) view.setBackgroundColor(getResources().getColor(R.color.gun_powder));
 
         if(!displayedInTablet) {
+
+            Timber.d("not in tablet");
             buttonCallback = (ButtonCallback) getActivity();
 
 

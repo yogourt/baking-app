@@ -36,21 +36,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_view"
-        app:layout_constraintBottom_toTopOf="@+id/thumbnail_image_view">
-
     <TextView
         android:id="@+id/step_detailed_desc_text_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/detailed_desc_margin"
+        app:layout_constraintTop_toBottomOf="@+id/video_view"
+        app:layout_constraintBottom_toTopOf="@+id/thumbnail_image_view"
+        app:layout_constraintStart_toStartOf="parent"
         style="@style/DescTextStyle"
         tools:text="Recipe Introduction" />
-    </ScrollView>
 
     <ImageView
         android:id="@+id/thumbnail_image_view"
